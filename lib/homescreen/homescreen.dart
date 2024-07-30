@@ -42,7 +42,20 @@ class HomePage extends MyApp {
 
             
             // Include the CategorySection widget
-            const ProductCard(),
+           ProductGrid(
+          products: [
+            Product(
+              image: '/assets/images/watch 4.jpg',
+              price: 25.00,
+              name: 'smart watch',
+              rating: 4.5,
+            ),
+            Product(
+              image: 'assets/images/heelshoe 4.jpg',
+              price: 19.99,
+              name: 'Tnd shoes',
+              rating: 4,
+            ),]),
        
               Container(
                 padding: const EdgeInsets.only(left: 10,right: 10),
@@ -57,7 +70,7 @@ class HomePage extends MyApp {
                 Text('View all',style:  TextStyle(fontSize: 18),),
               ],),
             ),
-            Categorysection(),
+            CategorySection(),
             
 
             // Other sections of your page can go here

@@ -1,24 +1,22 @@
-
 import 'package:flutter/material.dart';
 
-class Product{
-  // ignore: prefer_typing_uninitialized_variables
-  final  image;
-  final double price;
+
+class Product {
+  final String image;
   final String name;
-  final double rating ;
-  
+  final double price;
+  final double rating;
+
 
   Product({
     required this.image,
-   required this.price, 
-   required this.name, 
+    required this.name,
+    required this.price,
    required this.rating,
-    
-   });
    
-    
+  });
 }
+
 class ProductCard extends StatelessWidget {
   final Product product;
 
@@ -26,19 +24,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            childAspectRatio: 0.7,
-          ),
-          itemBuilder: (context, index) {
-            return ProductCard(product: [product][index]);
-          };
-    Stack Card(
+    return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -71,14 +57,18 @@ class ProductCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               product.name,
-              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text('\$${product.price.toStringAsFixed(2)}'),
           ),
-         Padding(
+              
+              Padding(
             padding: const EdgeInsets.all(8.0),
             child: RatingBar.builder(
               initialRating: product.rating,
@@ -96,8 +86,9 @@ class ProductCard extends StatelessWidget {
               },
             ),
           ),
-
-
+    
+          
+          
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
@@ -114,7 +105,35 @@ class ProductCard extends StatelessWidget {
         ],
       ),
     );
-     )
-  );
   }
 }
+
+class RatingBar {
+  static builder({required double initialRating, required int minRating, required Axis direction, required bool allowHalfRating, required int itemCount, required double itemSize, required Icon Function(dynamic context, dynamic _) itemBuilder, required Null Function(dynamic rating) onRatingUpdate}) {}
+}
+
+class ProductGrid extends StatelessWidget {
+  final List<Product> products;
+
+  const ProductGrid({super.key, required this.products});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+          childAspectRatio: 0.7,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return ProductCard(product: products[index]);
+        },
+      ),
+    );
+  }
+}
+
