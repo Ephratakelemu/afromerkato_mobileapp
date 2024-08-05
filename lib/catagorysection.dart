@@ -1,5 +1,6 @@
 import 'package:afromerkatoecommerce/Allcategories.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 
 
@@ -10,7 +11,7 @@ class CategorySection extends StatelessWidget {
   final List<Category> categories = [
     Category(name: 'Apparel', icon: Icons.checkroom, subcategories: [
       SubCategory(name: 'Men\'s Wear', image: 'assets/images/Men overcoat.jpg'),
-      SubCategory(name: 'Women\'s Wear', image: 'assets/images/Men overcoat.jpg'),
+      SubCategory(name: 'Women\'s Wear', image: 'assets/images/shoes 2.jpg'),
     ]),
     Category(name: 'Watches', icon: Icons.watch, subcategories: [
       SubCategory(name: 'Men\'s Watches', image: 'assets/images/watch 4.jpg'),
@@ -27,10 +28,9 @@ class CategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          margin: const EdgeInsets.only(left: 10, right: 15),
-          width: MediaQuery.of(context).size.width,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -47,7 +47,7 @@ class CategorySection extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('View All'),
+                child: const Text('View All',style: TextStyle(color: Colors.blue),)
               ),
             ],
           ),

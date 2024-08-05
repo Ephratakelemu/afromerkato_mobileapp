@@ -123,7 +123,7 @@ class ProductCard extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor:const Color.fromARGB(255, 17, 128, 219),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -175,7 +175,7 @@ class RatingBar {
                 },
                 child: const Text(
                   'View All',
-                  style: TextStyle(color: Colors.blue),
+                  
                 ),
               ),
             ],
