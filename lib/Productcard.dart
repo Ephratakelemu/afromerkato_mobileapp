@@ -32,27 +32,29 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 150,
+          Expanded(
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.asset(
+                    product.image,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 300,
+                  ),
                 ),
-              ),
-              Positioned(
-                right: 8.0,
-                top: 8.0,
-                child: IconButton(
-                  icon: const Icon(Icons.favorite_border),
-                  onPressed: () {},
-                  color: Colors.blue,
+                Positioned(
+                  right: 8.0,
+                  top: 8.0,
+                  child: IconButton(
+                    icon: const Icon(Icons.favorite_border),
+                    onPressed: () {},
+                    color: Colors.blue,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -123,6 +125,8 @@ class ProductGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
+        physics:const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8.0,

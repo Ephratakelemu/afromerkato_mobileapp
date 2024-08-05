@@ -1,15 +1,20 @@
 
 import  'package:flutter/material.dart';
 
-class Body extends StatelessWidget{
+class Searchbar extends StatelessWidget{
+  const Searchbar({super.key});
+
   @override
 Widget build(BuildContext context) {
   return SafeArea(child: SingleChildScrollView(
-child: Column(
-  children: [
-    Padding(padding:const EdgeInsets.symmetric(
+child: Container(
+  height: 60,
+  width: MediaQuery.of(context).size.width,
+   padding:const EdgeInsets.symmetric(
       horizontal:20),
-child: Row(children: [
+child: Row(
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
    Container(
       width: 350,
       //height: 50,
@@ -28,9 +33,9 @@ child: Row(children: [
          ),
         ),
     ),
+
 ]
-    ))
-   ],
+    )
 ),
 )
   );

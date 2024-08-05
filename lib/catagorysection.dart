@@ -19,6 +19,32 @@ class CategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+
+         Container(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 15),
+      width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Category',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllCategoriesPage(categories: categories),
+                    ),
+                  );
+                },
+                child: const Text('View All'),
+              ),
+            ],
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
@@ -32,7 +58,7 @@ class CategorySection extends StatelessWidget {
             ),
             itemCount: 3, // Show only the first row (3 items)
             itemBuilder: (context, index) {
-              return GestureDetector(
+              return InkWell(
                 onTap: () {
                   // Handle category tap
                   print('Tapped on ${categories[index].name}');
@@ -40,7 +66,7 @@ class CategorySection extends StatelessWidget {
                 child: Card(
                   elevation: 1.0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -63,17 +89,7 @@ class CategorySection extends StatelessWidget {
             },
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AllCategoriesPage(categories: categories),
-              ),
-            );
-          },
-          child: const Text('View All'),
-        ),
+      
       ],
     );
   }
@@ -110,7 +126,7 @@ class Category {
               child: Card(
                 elevation: 1.0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(2.0),
                 ),
                 child: ListTile(
                   leading: Icon(
