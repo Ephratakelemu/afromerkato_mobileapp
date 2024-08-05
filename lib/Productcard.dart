@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:afromerkatoecommerce/productlist.dart';
 
 
 class Product {
@@ -7,6 +7,7 @@ class Product {
   final String name;
   final double price;
   final double rating;
+    final double? canceledPrice;
 
 
   Product({
@@ -14,6 +15,7 @@ class Product {
     required this.name,
     required this.price,
    required this.rating,
+   required this.canceledPrice,
    
   });
 }
@@ -32,21 +34,21 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Stack(
+        Expanded(
+         
+           child: Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
+                  borderRadius: BorderRadius.circular(5.0),
                   child: Image.asset(
                     product.image,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 300,
-                  ),
+                     fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
                 ),
                 Positioned(
-                  right: 8.0,
-                  top: 8.0,
+                  right: 2.0,
+                  top: 2.0,
                   child: IconButton(
                     icon: const Icon(Icons.favorite_border),
                     onPressed: () {},
@@ -57,7 +59,7 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(2.0),
             child: Text(
               product.name,
               style: const TextStyle(
@@ -66,20 +68,16 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text('\$${product.price.toStringAsFixed(2)}'),
-          ),
-              
+          
               Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(2.0),
             child: RatingBar.builder(
               initialRating: product.rating,
               minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 20.0,
+              itemCount: 1,
+              itemSize: 10.0,
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.blue,
@@ -89,17 +87,45 @@ class ProductCard extends StatelessWidget {
               },
             ),
           ),
-    
-          
-          
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+         Container(
+            padding: const EdgeInsets.all(4),
+           width: MediaQuery.of(context).size.width,
+           child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [  Text(
+                  '\$${product.price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                   
+                  ),
+                ),
+                if (product.canceledPrice != null)
+                  Text(
+                    '\$${product.canceledPrice!.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                      decoration: TextDecoration.lineThrough, decorationColor: Colors.blue,
+                    ),
+                  ),
+                const SizedBox(width: 8),
+              
+              ],
+            ),
+          ),
+              
+             
+    Container(
+            padding: const EdgeInsets.all(2.0),
+            width:MediaQuery.of(context).size.width,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
               child: const Text('Add to Cart'),
@@ -115,30 +141,64 @@ class RatingBar {
   static builder({required double initialRating, required int minRating, required Axis direction, required bool allowHalfRating, required int itemCount, required double itemSize, required Icon Function(dynamic context, dynamic _) itemBuilder, required Null Function(dynamic rating) onRatingUpdate}) {}
 }
 
-class ProductGrid extends StatelessWidget {
+
+  
+  class ProductGrid extends StatelessWidget {
   final List<Product> products;
 
-  const ProductGrid({super.key, required this.products});
+  const ProductGrid({Key? key, required this.products}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
-        physics:const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 0.7,
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Exclusive deals',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductList(products: products),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'View All',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ],
+          ),
         ),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return ProductCard(product: products[index]);
-        },
-      ),
+        Container(
+          height: 260,
+          padding: const EdgeInsets.all(2.0),
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            physics: const PageScrollPhysics(),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: 200, // Adjust the width of each item as needed
+                margin: const EdgeInsets.only(right: 10.0),
+                child: ProductCard(product: products[index]),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
-

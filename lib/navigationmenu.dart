@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'cartpage.dart';
 import 'accountpage.dart';
 import 'homescreen/homescreen.dart';
+import 'message.dart';
 
 
 
@@ -18,8 +19,10 @@ class _MainPageState extends State<MainPage> {
 
   static final List<Widget> _pages = <Widget>[
     HomePage(),
+    Message(),
     CartPage(),
     AccountPage(),
+    
     
   ];
 
@@ -35,11 +38,16 @@ class _MainPageState extends State<MainPage> {
       backgroundColor:Colors.blue,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Messages',
+            ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',
@@ -51,8 +59,12 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
+       
         onTap: _onItemTapped,
       ),
     );
   }
 }
+
+
+

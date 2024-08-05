@@ -1,9 +1,12 @@
 
+
 import 'package:afromerkatoecommerce/Herosection.dart';
 import 'package:afromerkatoecommerce/Productcard.dart';
 import 'package:afromerkatoecommerce/catagorysection.dart';
+import 'package:afromerkatoecommerce/homescreen/Search.dart';
 import 'package:afromerkatoecommerce/main.dart';
 import 'package:flutter/material.dart';
+
 
 class HomePage extends MyApp {
 
@@ -13,13 +16,13 @@ class HomePage extends MyApp {
       
       appBar: AppBar(
         title:const Text('welcome to afromerkato'),
-        
+        actions: const [Icon(Icons.notifications)],
         ),
         
          body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SearchBar(),
+            Search(),
               SizedBox(
                  width:MediaQuery.of(context).size.width,
               child: const Row(
@@ -37,25 +40,70 @@ class HomePage extends MyApp {
             ),
               
                      // Other sections of your page can go here
-            Herosection(),  
-            
-              Container(
-                padding: const EdgeInsets.only(left: 10,right: 10),
-                margin: const EdgeInsets.only(left:10,right: 15),
-              width:MediaQuery.of(context).size.width,
+            Herosection(),
+            // Include the CategorySection widget
              
-  
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                Text('Category',style:  TextStyle(fontSize: 18),),
-                Text('View all',style:  TextStyle(fontSize: 18),),
-              ],),
-
-            ),
-            CategorySection()
          
-            
+             ProductGrid(
+          products: [
+            Product(
+              image: 'assets/images/watch 4.jpg',
+              price: 25.00,
+              name: 'smart watch',
+              rating: 4.5,
+              canceledPrice: 34,
+            ),
+            Product(
+              image: 'assets/images/heelshoe 4.jpg',
+              price: 19.99,
+              name: 'Tnd shoes',
+              rating: 4,
+              canceledPrice: 23,
+            ),
+             Product(
+              image: 'assets/images/watch 4.jpg',
+              price: 25.00,
+              name: 'smart watch',
+              rating: 4.5,
+              canceledPrice: 34,
+            ),
+            Product(
+              image: 'assets/images/heelshoe 4.jpg',
+              price: 19.99,
+              name: 'Tnd shoes',
+              rating: 4,
+              canceledPrice: 23,
+            ),
+             Product(
+              image: 'assets/images/watch 4.jpg',
+              price: 25.00,
+              name: 'smart watch',
+              rating: 4.5,
+              canceledPrice: 34,
+            ),
+            Product(
+              image: 'assets/images/heelshoe 4.jpg',
+              price: 19.99,
+              name: 'Tnd shoes',
+              rating: 4,
+              canceledPrice: 23,
+            ),
+             Product(
+              image: 'assets/images/watch 4.jpg',
+              price: 25.00,
+              name: 'smart watch',
+              rating: 4.5,
+              canceledPrice: 34,
+            ),
+            Product(
+              image: 'assets/images/heelshoe 4.jpg',
+              price: 19.99,
+              name: 'Tnd shoes',
+              rating: 4,
+              canceledPrice: 23,
+            ),]),
+        CategorySection()
+          
 
             // Other sections of your page can go here
           ],
@@ -64,4 +112,3 @@ class HomePage extends MyApp {
        );
       }
 }
-
