@@ -28,6 +28,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
               itemCount: widget.categories.length,
               itemBuilder: (context, index) {
                 final category = widget.categories[index];
+                final isSelected = _selectedCategory == category;
                 return InkWell(
                   onTap: () {
                     setState(() {
@@ -35,7 +36,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                     });
                   },
                   child: Card(
-                    elevation: 1.0,
+                    elevation: 0.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -47,11 +48,15 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                           size: 50,
                           color: Colors.blue,
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 30),
                         Text(
                           category.name,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: isSelected ? Colors.blue : Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -65,23 +70,95 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
             flex: 2,
             child: _selectedCategory == null
                 ? Center(child: Text('Select a category'))
-                : ListView(
-                    padding: const EdgeInsets.all(8.0),
-                    children: _selectedCategory!.subcategories.map((subCategory) {
-                      return ListTile(
-                        leading: Image.asset(
-                          subCategory.image,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                : Row(
+                    children: [
+                      // Women section
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Women',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView(
+                                padding: const EdgeInsets.all(8.0),
+                                children: _selectedCategory!.subcategories
+                                    .where((sc) => sc.name.contains('Women'))
+                                    .map((subCategory) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          subCategory.image,
+                                          width: double.infinity,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          subCategory.name,
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
                         ),
-                        title: Text(subCategory.name),
-                        onTap: () {
-                          // Handle subcategory tap
-                          print('Tapped on ${subCategory.name}');
-                        },
-                      );
-                    }).toList(),
+                      ),
+                      // Men section
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Men',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView(
+                                padding: const EdgeInsets.all(8.0),
+                                children: _selectedCategory!.subcategories
+                                    .where((sc) => sc.name.contains('Men'))
+                                    .map((subCategory) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          subCategory.image,
+                                          width: double.infinity,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          subCategory.name,
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
           ),
         ],
