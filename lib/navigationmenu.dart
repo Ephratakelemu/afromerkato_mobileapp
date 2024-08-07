@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'cartpage.dart';
 import 'accountpage.dart';
 import 'homescreen/homescreen.dart';
-import 'message.dart';
+
 
 
 
@@ -10,6 +10,8 @@ import 'message.dart';
 
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -19,8 +21,7 @@ class _MainPageState extends State<MainPage> {
 
   static final List<Widget> _pages = <Widget>[
     HomePage(),
-    Message(),
-    CartPage(),
+   CartPage(),
     AccountPage(),
     
     
@@ -44,10 +45,7 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
-            ),
+        
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',

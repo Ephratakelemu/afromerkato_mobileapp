@@ -29,18 +29,22 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
               itemBuilder: (context, index) {
                 final category = widget.categories[index];
                 final isSelected = _selectedCategory == category;
-                return InkWell(
+                return Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
+                  child:InkWell(
                   onTap: () {
                     setState(() {
                       _selectedCategory = category;
                     });
                   },
                   child: Card(
+                    
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
@@ -48,7 +52,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                           size: 50,
                           color: Colors.blue,
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height:20),
                         Text(
                           category.name,
                           textAlign: TextAlign.center,
@@ -61,6 +65,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                       ],
                     ),
                   ),
+                )
                 );
               },
             ),

@@ -1,4 +1,4 @@
-import 'package:afromerkatoecommerce/Allcategories.dart';
+import 'package:afromerkatoecommerce/category/Allcategories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -9,15 +9,20 @@ class CategorySection extends StatelessWidget {
   CategorySection({super.key});
 
   final List<Category> categories = [
-    Category(name: 'Apparel', icon: Icons.checkroom, subcategories: [
-      SubCategory(name: 'Men\'s Wear', image: 'assets/images/Men overcoat.jpg'),
-      SubCategory(name: 'Women\'s Wear', image: 'assets/images/shoes 2.jpg'),
+    Category(name: 'Apparel', icon: Icons.checkroom_sharp, subcategories: [
+      SubCategory(name: 'Men\'s Coat', image: 'assets/images/Men overcoat.jpg'),
+      
     ]),
     Category(name: 'Watches', icon: Icons.watch, subcategories: [
       SubCategory(name: 'Men\'s Watches', image: 'assets/images/watch 4.jpg'),
       SubCategory(name: 'Women\'s Watches', image: 'assets/images/watch 2.jpg'),
     ]),
-    Category(name: 'Shoes', icon: Icons.hiking_sharp),
+    Category(name: 'Shoes', icon: Icons.hiking_sharp, subcategories: [
+    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 2.jpg'),
+    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 3.jpg'),
+    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 4.jpg'),
+    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 5.jpg'),]),
+    
     Category(name: 'Beauty', icon: Icons.girl_rounded),
     Category(name: 'Electronics', icon: Icons.mobile_friendly),
     Category(name: 'Toys', icon: Icons.toys),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/productlist.dart';
+import 'package:afromerkatoecommerce/product/productlist.dart';
+import 'package:afromerkatoecommerce/product/productdetailpage.dart';
 
 
 class Product {
@@ -31,6 +32,16 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
+
+         child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailPage(product: product),
+            ),
+          );
+        },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -128,11 +139,12 @@ class ProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Add to Cart'),
+              child: const Text('Add to Cart',style:TextStyle(color: Colors.white),),
             ),
           ),
         ],
       ),
+      )
     );
   }
 }

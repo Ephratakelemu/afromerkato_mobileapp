@@ -1,8 +1,8 @@
 
 
 import 'package:afromerkatoecommerce/Herosection.dart';
-import 'package:afromerkatoecommerce/Productcard.dart';
-import 'package:afromerkatoecommerce/catagorysection.dart';
+import 'package:afromerkatoecommerce/product/Productcard.dart';
+import 'package:afromerkatoecommerce/category/catagorysection.dart';
 import 'package:afromerkatoecommerce/homescreen/Search.dart';
 import 'package:afromerkatoecommerce/main.dart';
 import 'package:flutter/material.dart';

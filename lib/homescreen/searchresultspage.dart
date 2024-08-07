@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/Productcard.dart';
+import 'package:afromerkatoecommerce/product/Productcard.dart';
 
 class SearchResultsPage extends StatefulWidget {
   final String query;
