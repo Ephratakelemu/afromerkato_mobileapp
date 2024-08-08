@@ -10,6 +10,7 @@ import 'package:afromerkatoecommerce/homescreen/searchresultspage.dart';
 
 
 
+
 class HomePage extends StatefulWidget{
    @override
   _HomePageState createState() => _HomePageState();
@@ -127,11 +128,12 @@ class _HomePageState extends State<HomePage> {
             ]),
 
             
-        CategorySection()
+        CategorySection(),
+        
+          ]
           
 
-            // Other sections of your page can go here
-          ],
+            // Other sections of your page can go 
         ),
       ),
        );

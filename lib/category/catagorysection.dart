@@ -1,28 +1,31 @@
-import 'package:afromerkatoecommerce/category/Allcategories.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-
-
+import 'package:afromerkatoecommerce/category/Allcategories.dart'; // Make sure this import path is correct
 
 class CategorySection extends StatelessWidget {
   CategorySection({super.key});
 
   final List<Category> categories = [
-    Category(name: 'Apparel', icon: Icons.checkroom_sharp, subcategories: [
-      SubCategory(name: 'Men\'s Coat', image: 'assets/images/Men overcoat.jpg'),
+    Category(
+      name: 'Apparel',
+      icon: Icons.checkroom_sharp,
+      subcategories: [
+        SubCategory(name: 'Sweaters'),
+        SubCategory(name: 'T-shirts'),
+        SubCategory(name: 'Shirts'),
+        SubCategory(name: 'Pants'),
+        SubCategory(name: 'Hoodies'),
+        SubCategory(name: 'Dresses'),
+        SubCategory(name: 'Coats'),
+      ],
+    ),
+    Category(name: 'Watches', icon: Icons.watch,
+         subcategories: [
+        SubCategory(name: 'Men watch'),
+        SubCategory(name: 'Women watch'),
       
-    ]),
-    Category(name: 'Watches', icon: Icons.watch, subcategories: [
-      SubCategory(name: 'Men\'s Watches', image: 'assets/images/watch 4.jpg'),
-      SubCategory(name: 'Women\'s Watches', image: 'assets/images/watch 2.jpg'),
-    ]),
-    Category(name: 'Shoes', icon: Icons.hiking_sharp, subcategories: [
-    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 2.jpg'),
-    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 3.jpg'),
-    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 4.jpg'),
-    SubCategory(name: 'Men\'s Shoes', image: 'assets/images/shoes 5.jpg'),]),
-    
+      ],),
+
+    Category(name: 'Shoes', icon: Icons.hiking_sharp),
     Category(name: 'Beauty', icon: Icons.girl_rounded),
     Category(name: 'Electronics', icon: Icons.mobile_friendly),
     Category(name: 'Toys', icon: Icons.toys),
@@ -35,7 +38,6 @@ class CategorySection extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -52,7 +54,7 @@ class CategorySection extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('View All',style: TextStyle(color: Colors.blue),)
+                child: const Text('View All', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -60,15 +62,15 @@ class CategorySection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
-            shrinkWrap: true, // Use this to make the GridView take only the needed space
-            physics: const NeverScrollableScrollPhysics(), // Disable scrolling in this section
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // 3 columns
+              crossAxisCount: 3,
               crossAxisSpacing: 20.0,
               mainAxisSpacing: 10.0,
-              childAspectRatio: 1.0, // Adjust this value for different aspect ratios
+              childAspectRatio: 1.0,
             ),
-            itemCount: 3, // Show only the first row (3 items)
+            itemCount: categories.length < 3 ? categories.length : 3,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
@@ -91,7 +93,7 @@ class CategorySection extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         categories[index].name,
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],

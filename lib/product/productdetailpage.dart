@@ -4,7 +4,7 @@ import 'package:afromerkatoecommerce/product/Productcard.dart';
 class ProductDetailPage extends StatefulWidget {
   final Product product;
 
-  const ProductDetailPage({Key? key, required this.product}) : super(key: key);
+  const ProductDetailPage({super.key, required this.product});
 
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
@@ -34,6 +34,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+     // Get screen width
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.product.name),
@@ -48,7 +50,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 children: [
                   // Product Image
                   SizedBox(
-                    width: double.infinity,
+                    width: screenWidth,
                     child: Image.asset(
                       widget.product.image,
                       height: 300,
@@ -57,22 +59,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   const SizedBox(height: 16.0),
                   // Product Name and Price
+               Column(
+                children:[   Text(
+                    '\$${widget.product.price.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      
+                      color: Colors.blue,
+                      fontSize: 20.0,
+                     
+                    ),
+                  ),
+                  
                   Text(
                     widget.product.name,
                     style: const TextStyle(
                       fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+                     
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    '\$${widget.product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  
+                  ] 
+                   ),
                   const SizedBox(height: 16.0),
                   // Select Color
                   const Text(
@@ -86,9 +93,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      _colorOption(Colors.red),
+                      _colorOption(Colors.black),
                       const SizedBox(width: 8.0),
-                      _colorOption(Colors.green),
+                      _colorOption(Colors.red),
                       const SizedBox(width: 8.0),
                       _colorOption(Colors.blue),
                     ],
@@ -168,13 +175,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       // Add to Cart action
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20), // Adjust radius here
+                        borderRadius: BorderRadius.circular(5),
+                           side: const BorderSide(
+                         color: Colors.blue, // Border color
+                          width: 1.5, // Border width
+), 
                       ),
-                      minimumSize: Size(double.infinity, 50), // Set width and height
+                      minimumSize: const Size(double.infinity, 50), // Set width and height
                     ),
-                    child: const Text('Add to Cart', style: TextStyle(color: Colors.white)),
+                    child: const Text('Add to Cart', style: TextStyle(color: Colors.blue,fontSize: 18)),
                   ),
                 ),
                 const SizedBox(width: 16.0), // Space between buttons
@@ -186,11 +196,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20), // Adjust radius here
+                        borderRadius: BorderRadius.circular(5), // Adjust radius here
                       ),
-                      minimumSize: Size(double.infinity, 50), // Set width and height
+                      minimumSize: const Size(double.infinity, 50), // Set width and height
                     ),
-                    child: const Text('Buy Now', style: TextStyle(color: Colors.white)),
+                    child: const Text('Buy Now', style: TextStyle(color: Colors.white,fontSize: 18)),
                   ),
                 ),
               ],

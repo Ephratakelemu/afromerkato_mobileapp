@@ -186,7 +186,7 @@ class RatingBar {
                   );
                 },
                 child: const Text(
-                  'View All',
+                  'View All',style: TextStyle(color: Colors.black),
                   
                 ),
               ),
