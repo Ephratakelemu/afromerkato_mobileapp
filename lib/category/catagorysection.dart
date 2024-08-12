@@ -11,25 +11,69 @@ class CategorySection extends StatelessWidget {
       subcategories: [
         SubCategory(name: 'Sweaters'),
         SubCategory(name: 'T-shirts'),
-        SubCategory(name: 'Shirts'),
         SubCategory(name: 'Pants'),
         SubCategory(name: 'Hoodies'),
         SubCategory(name: 'Dresses'),
         SubCategory(name: 'Coats'),
+         SubCategory(name: 'Office Wear'),
+          SubCategory(name: 'Jeans'),
+          
       ],
     ),
     Category(name: 'Watches', icon: Icons.watch,
          subcategories: [
-        SubCategory(name: 'Men watch'),
-        SubCategory(name: 'Women watch'),
+        SubCategory(name: 'Smartwatches'),
+        SubCategory(name: 'Luxury Watches '),
+         SubCategory(name: 'Dress Watches '),
+          SubCategory(name: 'Sport Watches'),
       
       ],),
 
-    Category(name: 'Shoes', icon: Icons.hiking_sharp),
-    Category(name: 'Beauty', icon: Icons.girl_rounded),
-    Category(name: 'Electronics', icon: Icons.mobile_friendly),
-    Category(name: 'Toys', icon: Icons.toys),
-    Category(name: 'Sports', icon: Icons.sports_basketball),
+    Category(name: 'Shoes', icon: Icons.hiking_sharp,
+    subcategories: [
+        SubCategory(name: 'Casual Shoes'),
+          SubCategory(name: 'Sneackers Shoes'),
+        SubCategory(name: 'Sport Shoes'),
+        SubCategory(name: 'Boots'),
+        SubCategory(name: 'Heels'),
+              ],),
+
+
+    Category(name: 'Beauty', icon: Icons.girl_rounded,
+    subcategories: [
+        SubCategory(name: 'Skin care'),
+        SubCategory(name: 'Make Up'),
+        SubCategory(name: 'Hair Care'),
+        SubCategory(name: 'Fragrances'),
+              ],
+    ),
+    Category(name: 'Electronics', icon: Icons.mobile_friendly,
+     subcategories: [
+        SubCategory(name: 'Laptops'),
+        SubCategory(name: 'Television'),
+        SubCategory(name: 'Audio Devices'),
+        
+       
+              
+              ],
+    ),
+    Category(name: 'Toys', icon: Icons.toys,
+     subcategories: [
+        SubCategory(name: 'Infant Toys'),
+        SubCategory(name: 'Games and Puzzles'),
+        SubCategory(name: 'Arts and Crafts'),
+       
+         
+              ],
+    ),
+    Category(name: 'Sports', icon: Icons.sports_basketball,
+    subcategories: [
+      SubCategory(name: 'Football'),
+      SubCategory(name: 'Basketball'),
+      SubCategory(name: 'Tennis'),
+       SubCategory(name: 'Cycling'),]
+      
+    ),
   ];
 
   @override

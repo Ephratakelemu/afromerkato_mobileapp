@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/productlist.dart';
 import 'package:afromerkatoecommerce/product/productdetailpage.dart';
+
+
+
 
 
 class Product {
@@ -10,8 +14,7 @@ class Product {
   final double rating;
     final double? canceledPrice;
 
-
-  Product({
+ Product({
     required this.image,
     required this.name,
     required this.price,
@@ -87,8 +90,9 @@ class ProductCard extends StatelessWidget {
               minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: true,
-              itemCount: 1,
+              itemCount: 5,
               itemSize: 10.0,
+              
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.blue,
@@ -139,7 +143,7 @@ class ProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Add to Cart',style:TextStyle(color: Colors.white),),
+              child: const Text('Add To Cart',style:TextStyle(color: Colors.white),),
             ),
           ),
         ],

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:afromerkatoecommerce/product/Productcard.dart'; 
 
 class ProductDetailPage extends StatefulWidget {
+ 
+ 
   final Product product;
 
   const ProductDetailPage({super.key, required this.product});
@@ -31,6 +34,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       _selectedSize = size;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +57,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     width: screenWidth,
                     child: Image.asset(
                       widget.product.image,
-                      height: 300,
+                      height: 400,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -76,8 +80,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       fontSize: 24.0,
                      
                     ),
-                  ),
-                  
+                  )
+                     
                   ] 
                    ),
                   const SizedBox(height: 16.0),
@@ -237,7 +241,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           size,
           style: TextStyle(
             fontSize: 16.0,
-            color: isSelected ? Colors.white : Colors.black, // White text if selected
+            color: isSelected ? Colors.white : Colors.black, // 
           ),
         ),
       ),
