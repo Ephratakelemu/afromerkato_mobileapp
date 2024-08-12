@@ -24,7 +24,6 @@ class CategorySection extends StatelessWidget {
          subcategories: [
         SubCategory(name: 'Smartwatches'),
         SubCategory(name: 'Luxury Watches '),
-         SubCategory(name: 'Dress Watches '),
           SubCategory(name: 'Sport Watches'),
       
       ],),
