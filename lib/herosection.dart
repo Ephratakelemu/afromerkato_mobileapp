@@ -8,7 +8,7 @@ class Herosection extends StatelessWidget{
        'bottomleftText':'50% Off',
                  },
        {
-      'image': 'assets/images/shoes 2.jpg',
+      'image':'assets/images/sport 4 Bottom Sneakers.jpg',
      'topLeftText': 'Super Flash Sale ',
        'bottomleftText':'50% Off',
     },

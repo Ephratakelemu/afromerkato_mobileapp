@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/category/Allcategories.dart'; // Make sure this import path is correct
+import 'package:afromerkatoecommerce/category/Allcategories.dart'; 
 
 class CategorySection extends StatelessWidget {
   CategorySection({super.key});
@@ -22,7 +22,7 @@ class CategorySection extends StatelessWidget {
     ),
     Category(name: 'Watches', icon: Icons.watch,
          subcategories: [
-        SubCategory(name: 'Smartwatches'),
+        SubCategory(name: 'Smart Watches'),
         SubCategory(name: 'Luxury Watches '),
           SubCategory(name: 'Sport Watches'),
       
@@ -31,7 +31,7 @@ class CategorySection extends StatelessWidget {
     Category(name: 'Shoes', icon: Icons.hiking_sharp,
     subcategories: [
         SubCategory(name: 'Casual Shoes'),
-          SubCategory(name: 'Sneackers Shoes'),
+          SubCategory(name: 'Sneakers Shoes'),
         SubCategory(name: 'Sport Shoes'),
         SubCategory(name: 'Boots'),
         SubCategory(name: 'Heels'),
@@ -137,7 +137,7 @@ class CategorySection extends StatelessWidget {
                       Text(
                         categories[index].name,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16,color: Color.fromARGB(255, 24, 23, 23)),
                       ),
                     ],
                   ),
