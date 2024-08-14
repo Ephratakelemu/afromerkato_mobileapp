@@ -19,6 +19,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'smart watch',
       rating: 4.5,
       canceledPrice: 34,
+      
     ),
     Product(
       image: 'assets/images/heelshoe 4.jpg',

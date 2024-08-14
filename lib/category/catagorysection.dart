@@ -75,6 +75,7 @@ class CategorySection extends StatelessWidget {
     ),
   ];
 
+ 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -115,10 +116,18 @@ class CategorySection extends StatelessWidget {
             ),
             itemCount: categories.length < 3 ? categories.length : 3,
             itemBuilder: (context, index) {
+              final category = categories[index];
               return InkWell(
                 onTap: () {
-                  // Handle category tap
-                  print('Tapped on ${categories[index].name}');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllCategoriesPage(
+                        categories: categories
+                        
+                      ),
+                    ),
+                  );
                 },
                 child: Card(
                   elevation: 1.0,
@@ -129,15 +138,15 @@ class CategorySection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        categories[index].icon,
+                        category.icon,
                         size: 30,
                         color: Colors.blue,
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        categories[index].name,
+                        category.name,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16,color: Color.fromARGB(255, 24, 23, 23)),
+                        style: const TextStyle(fontSize: 16, color: Color.fromARGB(255, 24, 23, 23)),
                       ),
                     ],
                   ),

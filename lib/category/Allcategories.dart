@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-
 import 'package:afromerkatoecommerce/product/Productcard.dart';
 import 'package:afromerkatoecommerce/product/productdetailpage.dart';
 
 class AllCategoriesPage extends StatefulWidget {
   final List<Category> categories;
+ 
 
-  const AllCategoriesPage({super.key, required this.categories});
+  const AllCategoriesPage({super.key, required this.categories,});
 
   @override
-  // ignore: library_private_types_in_public_api
+  
   _AllCategoriesPageState createState() => _AllCategoriesPageState();
 }
 
 class _AllCategoriesPageState extends State<AllCategoriesPage> {
   Category? _selectedCategory;
   SubCategory? _selectedSubCategory;
+
+  
 
   final Map<String, List<Map<String, String>>> itemsData = {
     'Sweaters': [

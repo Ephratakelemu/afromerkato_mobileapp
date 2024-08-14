@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/productlist.dart';
 import 'package:afromerkatoecommerce/product/productdetailpage.dart';
-
-
-
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Product {
   final String image;
   final String name;
   final double price;
   final double rating;
-    final double? canceledPrice;
+  final double? canceledPrice;
+  
 
- Product({
+  Product({
     required this.image,
     required this.name,
     required this.price,
-   required this.rating,
-   required this.canceledPrice,
-   
+    required this.rating,
+    required this.canceledPrice,
   });
 }
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final Product product;
 
   const ProductCard({super.key, required this.product});
+
+  @override
+  _ProductCardState createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,131 +39,159 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
-
-         child: GestureDetector(
+      child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailPage(product: product),
+              builder: (context) => ProductDetailPage(product: widget.product),
             ),
           );
         },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        Expanded(
-         
-           child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Image.asset(
-                    product.image,
-                     fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-                ),
-                Positioned(
-                  right: 2.0,
-                  top: 2.0,
-                  child: IconButton(
-                    icon: const Icon(Icons.favorite_border),
-                    onPressed: () {},
-                    color: Colors.blue,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Image.asset(
+                      widget.product.image,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(
-              product.name,
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
+                  Positioned(
+                    right: 2.0,
+                    top: 2.0,
+                    child: IconButton(
+                      icon: Icon(
+                        isFavorited ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isFavorited = !isFavorited;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          
-              Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: RatingBar.builder(
-              initialRating: product.rating,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 10.0,
-              
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.blue,
-              ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
-            ),
-          ),
-         Container(
-            padding: const EdgeInsets.all(4),
-           width: MediaQuery.of(context).size.width,
-           child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [  Text(
-                  '\$${product.price.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                   
-                  ),
-                ),
-                if (product.canceledPrice != null)
+            Container(
+              padding: const EdgeInsets.all(4),
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                   Text(
-                    '\$${product.canceledPrice!.toStringAsFixed(2)}',
+                    '\$${widget.product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                      decoration: TextDecoration.lineThrough, decorationColor: Colors.blue,
                     ),
                   ),
-                const SizedBox(width: 8),
-              
-              ],
-            ),
-          ),
-              
-             
-    Container(
-            padding: const EdgeInsets.all(2.0),
-            width:MediaQuery.of(context).size.width,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor:const Color.fromARGB(255, 17, 128, 219),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                  if (widget.product.canceledPrice != null)
+                    Text(
+                      '\$${widget.product.canceledPrice!.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: Colors.blue,
+                      ),
+                    ),
+                  const SizedBox(width: 8),
+                ],
               ),
-              child: const Text('Add To Cart',style:TextStyle(color: Colors.white),),
+            ),
+           Container(
+  padding: const EdgeInsets.all(4),
+  width: MediaQuery.of(context).size.width,
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Expanded(
+        child: Text(
+          widget.product.name,
+          style: const TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+      ),
+      const SizedBox(width: 8.0), // Space between text and rating bar
+      Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              children: [
+                RatingBar.builder(
+                  initialRating: widget.product.rating,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 1,
+                  itemSize: 20.0,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.white, 
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                ),
+                const SizedBox(width: 4.0),
+                Text(
+                  '${widget.product.rating.toStringAsFixed(1)}', //rated number
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
-      )
+    ],
+  ),
+),
+
+
+            
+            Container(
+              padding: const EdgeInsets.all(2.0),
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 17, 128, 219),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: const Text(
+                  'Add To Cart',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class RatingBar {
-  static builder({required double initialRating, required int minRating, required Axis direction, required bool allowHalfRating, required int itemCount, required double itemSize, required Icon Function(dynamic context, dynamic _) itemBuilder, required Null Function(dynamic rating) onRatingUpdate}) {}
-}
-
-
-  
-  class ProductGrid extends StatelessWidget {
+class ProductGrid extends StatelessWidget {
   final List<Product> products;
 
   const ProductGrid({Key? key, required this.products}) : super(key: key);
@@ -190,8 +222,8 @@ class RatingBar {
                   );
                 },
                 child: const Text(
-                  'View All',style: TextStyle(color: Colors.black),
-                  
+                  'View All',
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

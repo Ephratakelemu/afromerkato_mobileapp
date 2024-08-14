@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'package:afromerkatoecommerce/product/Productcard.dart'; 
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:afromerkatoecommerce/product/Productcard.dart';
+import 'package:afromerkatoecommerce/product/bottomsheet.dart'; // Import the bottom sheet widget
 
 class ProductDetailPage extends StatefulWidget {
- 
- 
   final Product product;
 
   const ProductDetailPage({super.key, required this.product});
@@ -15,7 +14,8 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _quantity = 1;
-  String? _selectedSize; // State variable for selected size
+  String? _selectedSize;
+  double _currentRating = 3.5; // Initialize with a default rating
 
   void _incrementQuantity() {
     setState(() {
@@ -34,11 +34,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       _selectedSize = size;
     });
   }
-  
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetContent(
+          quantity: _quantity,
+          selectedSize: _selectedSize,
+          onContinue: () {
+            Navigator.pop(context); // Close the bottom sheet
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-     // Get screen width
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -61,36 +74,69 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  // Product Name and Price
-               Column(
-                children:[   Text(
+                  const SizedBox(height: 14.0),
+                  // Product price, Rating, and Rating Count
+                  Row(
+                    children: [
+                      Expanded(
+                        child:  Text(
                     '\$${widget.product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
-                      
                       color: Colors.blue,
                       fontSize: 20.0,
-                     
                     ),
                   ),
-                  
-                  Text(
-                    widget.product.name,
-                    style: const TextStyle(
-                      fontSize: 24.0,
-                     
-                    ),
-                  )
-                     
-                  ] 
-                   ),
+                      ),
+                      Container(
+                   
+                        child: Row(
+                          children: [
+                            RatingBar.builder(
+                              initialRating: _currentRating,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 20.0, // Adjust the size of the stars
+                              itemPadding: const EdgeInsets.symmetric(horizontal: 0.0), // Reduce padding between stars
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.blue, // Blue stars
+                              ),
+                              unratedColor: Colors.grey[300], // Light gray color for unselected stars
+                              onRatingUpdate: (rating) {
+                                setState(() {
+                                  _currentRating = rating; // Update the current rating
+                                });
+                              },
+                            ),
+                            const SizedBox(width: 8.0), // Space between stars and rating number
+                            Text(
+                              _currentRating.toString(),
+                              style: const TextStyle(
+                                color: Colors.black, // White text color
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  // Product Price
+              Text(
+                          widget.product.name,
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
                   const SizedBox(height: 16.0),
                   // Select Color
                   const Text(
                     'Select Color:',
                     style: TextStyle(
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -110,7 +156,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     'Select Size:',
                     style: TextStyle(
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -134,7 +179,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     'Quantity:',
                     style: TextStyle(
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -181,22 +225,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
-                           side: const BorderSide(
-                         color: Colors.blue, // Border color
+                        side: const BorderSide(
+                          color: Colors.blue, // Border color
                           width: 1.5, // Border width
-), 
+                        ),
                       ),
                       minimumSize: const Size(double.infinity, 50), // Set width and height
                     ),
-                    child: const Text('Add to Cart', style: TextStyle(color: Colors.blue,fontSize: 18)),
+                    child: const Text('Add to Cart', style: TextStyle(color: Colors.blue, fontSize: 18)),
                   ),
                 ),
                 const SizedBox(width: 16.0), // Space between buttons
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Buy Now action
-                    },
+                    onPressed: _showBottomSheet, // Show bottom sheet when "Buy Now" is pressed
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
@@ -204,7 +246,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                       minimumSize: const Size(double.infinity, 50), // Set width and height
                     ),
-                    child: const Text('Buy Now', style: TextStyle(color: Colors.white,fontSize: 18)),
+                    child: const Text('Buy Now', style: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
                 ),
               ],
@@ -241,7 +283,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           size,
           style: TextStyle(
             fontSize: 16.0,
-            color: isSelected ? Colors.white : Colors.black, // 
+            color: isSelected ? Colors.white : Colors.black,
           ),
         ),
       ),
