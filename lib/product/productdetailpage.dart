@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/Productcard.dart';
-import 'package:afromerkatoecommerce/product/bottomsheet.dart'; 
+import 'package:afromerkatoecommerce/product/bottomsheet.dart'; // Import the bottom sheet widget
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -15,33 +15,19 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _quantity = 1;
   String? _selectedSize;
+  Color? _selectedColor;
   double _currentRating = 3.5; // Initialize with a default rating
-  late PageController _pageController;
-  int _currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(); // Initialize the PageController
-    _pageController.addListener(_updatePageIndex); // Listen to page changes
-  }
-
-  @override
-  void dispose() {
-    _pageController.removeListener(_updatePageIndex); // Remove listener
-    _pageController.dispose(); // Dispose of the PageController when done
-    super.dispose();
-  }
-
-  void _updatePageIndex() {
-    setState(() {
-      _currentPage = _pageController.page?.round() ?? 0; // Update the current page index
-    });
-  }
+  int _selectedMenuIndex = 0; // Track the selected menu
 
   void _selectSize(String size) {
     setState(() {
       _selectedSize = size;
+    });
+  }
+
+  void _selectColor(Color color) {
+    setState(() {
+      _selectedColor = color;
     });
   }
 
@@ -75,7 +61,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             SizedBox(
               height: 350.0, // Height for the images
               child: PageView(
-                controller: _pageController, // Attach the controller
                 children: [
                   // Main Product Image
                   Image.asset(
@@ -93,11 +78,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
             const SizedBox(height: 16.0),
-            // Custom Dot Indicator
-            Center(
-              child: _buildDotIndicator(),
-            ),
-            const SizedBox(height: 16.0),
             // Product price, Rating, and Rating Count
             Row(
               children: [
@@ -111,7 +91,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  padding: EdgeInsets.only(left: 30, right: 30),
                   child: Row(
                     children: [
                       RatingBar.builder(
@@ -155,48 +135,55 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
             const SizedBox(height: 10.0),
-            // Select Color
-            const Text(
-              'Select Color:',
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
-            ),
-            const SizedBox(height: 8.0),
+            // Menu Row
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _colorOption(Colors.black),
-                const SizedBox(width: 8.0),
-                _colorOption(Colors.red),
-                const SizedBox(width: 8.0),
-                _colorOption(Colors.blue),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedMenuIndex = 0),
+                    child: MenuItem(
+                      title: 'Product',
+                      isSelected: _selectedMenuIndex == 0,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedMenuIndex = 1),
+                    child: MenuItem(
+                      title: 'Detail',
+                      isSelected: _selectedMenuIndex == 1,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedMenuIndex = 2),
+                    child: MenuItem(
+                      title: 'Review',
+                      isSelected: _selectedMenuIndex == 2,
+                    ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10.0),
-            // Select Size
-            const Text(
-              'Select Size:',
-              style: TextStyle(
-                fontSize: 18.0,
+            // Display content based on selected menu
+            Expanded(
+              child: IndexedStack(
+                index: _selectedMenuIndex,
+                children: [
+                  // Content for "Product"
+                  _productContent(),
+                  // Content for "Detail"
+                  _detailContent(),
+                  // Content for "Review"
+                  _reviewContent(),
+                ],
               ),
             ),
-            const SizedBox(height: 2.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _sizeOption('4'),
-                const SizedBox(width: 8.0),
-                _sizeOption('4.5'),
-                const SizedBox(width: 8.0),
-                _sizeOption('5'),
-                const SizedBox(width: 8.0),
-                _sizeOption('6.5'),
-                const SizedBox(width: 8.0),
-                _sizeOption('7'),
-              ],
-            ),
-           
+            const SizedBox(height: 16.0),
           ],
         ),
       ),
@@ -244,13 +231,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _colorOption(Color color) {
+    bool isSelected = color == _selectedColor; // Check if this color is selected
     return GestureDetector(
-      onTap: () {
-        // Handle color selection
-      },
+      onTap: () => _selectColor(color), // Update selected color
       child: CircleAvatar(
         radius: 20,
         backgroundColor: color,
+        child: isSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check mark if selected
       ),
     );
   }
@@ -276,18 +263,85 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Widget _buildDotIndicator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        widget.product.additionalImages.length + 1, // Number of dots
-        (index) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
-          width: 8.0,
-          height: 8.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _currentPage == index ? Colors.blue : Colors.grey[300],
+  Widget _productContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Select Color:',
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _colorOption(Colors.black),
+            const SizedBox(width: 8.0),
+            _colorOption(Colors.red),
+            const SizedBox(width: 8.0),
+            _colorOption(Colors.blue),
+          ],
+        ),
+        const SizedBox(height: 10.0),
+        const Text(
+          'Select Size:',
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
+        ),
+        const SizedBox(height: 2.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _sizeOption('4'),
+            const SizedBox(width: 8.0),
+            _sizeOption('4.5'),
+            const SizedBox(width: 8.0),
+            _sizeOption('5'),
+            const SizedBox(width: 8.0),
+            _sizeOption('6.5'),
+            const SizedBox(width: 8.0),
+            _sizeOption('7'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _detailContent() {
+    // Replace with your content for the "Detail" tab
+    return const Center(child: Text('Detailed description here'));
+  }
+
+  Widget _reviewContent() {
+    // Replace with your content for the "Review" tab
+    return const Center(child: Text('Reviews here'));
+  }
+}
+
+class MenuItem extends StatelessWidget {
+  final String title;
+  final bool isSelected;
+
+  const MenuItem({
+    Key? key,
+    required this.title,
+    required this.isSelected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+     
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: isSelected ? Colors.blue : Colors.black,
           ),
         ),
       ),
