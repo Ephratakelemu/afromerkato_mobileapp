@@ -18,7 +18,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       price: 25.00,
       name: 'smart watch',
       rating: 4.5,
-      canceledPrice: 34,
+      canceledPrice: 34, additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
       
     ),
     Product(
@@ -27,6 +29,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'Tnd shoes',
       rating: 4,
       canceledPrice: 23,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
+      
     ),
     Product(
       image: 'assets/images/Men overcoat.jpg',
@@ -34,6 +40,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'Men overcoat',
       rating: 4.5,
       canceledPrice: 34,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
     ),
     Product(
       image: 'assets/images/shoes 4.jpg',
@@ -41,6 +50,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'Nike Air',
       rating: 4,
       canceledPrice: 23,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
     ),
     Product(
       image: 'assets/images/watch 2.jpg',
@@ -48,6 +60,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'smart watch',
       rating: 4.5,
       canceledPrice: 34,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
     ),
     Product(
       image: 'assets/images/Framed glasses.jpg',
@@ -55,6 +70,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'Framed glasses',
       rating: 4,
       canceledPrice: 23,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
     ),
     Product(
       image: 'assets/images/O-Neck tishert.jpg',
@@ -62,6 +80,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       name: 'O-Neck tshirt ',
       rating: 4.5,
       canceledPrice: 34.50,
+      additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
     ),
   ];
 

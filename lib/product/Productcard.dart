@@ -10,7 +10,7 @@ class Product {
   final double price;
   final double rating;
   final double? canceledPrice;
-  
+   final List<String> additionalImages;
 
   Product({
     required this.image,
@@ -18,6 +18,7 @@ class Product {
     required this.price,
     required this.rating,
     required this.canceledPrice,
+    required this.additionalImages,
   });
 }
 

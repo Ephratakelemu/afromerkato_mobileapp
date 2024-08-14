@@ -517,7 +517,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                                                        image: item['product']!,
                                                          price: 100.0,
                                                           rating: 4,
-                                                  canceledPrice: 76,
+                                                  canceledPrice: 76, additionalImages: [],
                 
             ),
                                                       ),

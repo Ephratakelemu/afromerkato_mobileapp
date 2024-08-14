@@ -87,13 +87,19 @@ class _HomePageState extends State<HomePage> {
               name: 'smart watch',
               rating: 4.5,
               canceledPrice: 34,
+               additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
             ),
             Product(
               image: 'assets/images/heelshoe 4.jpg',
               price: 19.99,
               name: 'Tnd shoes',
               rating: 4,
-              canceledPrice: 23,
+              canceledPrice: 23, 
+              additionalImages: [ 'assets/images/Heels 8 Strappy Evening Heels.jpg',
+    'assets/images/Heels 3 Classic High Heels.jpg',
+    'assets/images/Heels 4 Black Strappy Heels.jpg',],
             ),
              Product(
               image: 'assets/images/Men overcoat.jpg',
@@ -101,6 +107,10 @@ class _HomePageState extends State<HomePage> {
               name: 'Men overcoat',
               rating: 4.5,
               canceledPrice: 34,
+              additionalImages:
+               [ 'assets/images/coat 5 Winter Coat.jpg',
+   'assets/images/coat 4.jpg ',
+    'assets/images/coat 1.jpg',],
             ),
             Product(
               image: 'assets/images/shoes 4.jpg',
@@ -108,13 +118,19 @@ class _HomePageState extends State<HomePage> {
               name: 'tnd shoes',
               rating: 4,
               canceledPrice: 23,
+             additionalImages: [ 'assets/images/Heels 8 Strappy Evening Heels.jpg',
+    'assets/images/Heels 3 Classic High Heels.jpg',
+    'assets/images/Heels 4 Black Strappy Heels.jpg',],
             ),
              Product(
               image: 'assets/images/watch 2.jpg',
               price: 25.00,
               name: 'smart watch',
               rating: 4.5,
-              canceledPrice: 34,
+              canceledPrice: 34, 
+              additionalImages: [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
             ),
             Product(
               image: 'assets/images/Framed glasses.jpg',
@@ -122,6 +138,10 @@ class _HomePageState extends State<HomePage> {
               name: 'Framed glasses',
               rating: 4,
               canceledPrice: 23,
+              additionalImages: 
+              [ 'assets/images/makeup 3 Huda Beauty Nude Palette.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/makeup 3 Huda Beauty Nude Palette.jpg',],
             ),
              Product(
               image: 'assets/images/O-Neck tishert.jpg',
@@ -129,6 +149,10 @@ class _HomePageState extends State<HomePage> {
               name: 'O-Neck tshirt ',
               rating: 4.5,
               canceledPrice: 34.50,
+              additionalImages:
+               [ 'assets/images/smart watch 2 Waterproof, Purple.jpg',
+    'assets/images/smart watch 1 Bluetooth Smart Watch for IOS Android Men.jpg',
+    'assets/images/smart watch 2 Waterproof, Purple.jpg',],
             ),
             ]),
 
