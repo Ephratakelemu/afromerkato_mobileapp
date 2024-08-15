@@ -1,17 +1,172 @@
 import 'package:flutter/material.dart';
-class CartPage extends StatelessWidget {
+import 'package:afromerkatoecommerce/cart.dart';
+import 'package:afromerkatoecommerce/product/Productcard.dart';
+
+class CartPage extends StatefulWidget {
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+   int _quantity = 1;
+  void  _incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  void _decrementQuantity() {
+    setState(() {
+      if (_quantity > 1) _quantity--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Product> cartItems = Cart().items;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-   
+      body: cartItems.isEmpty
+          ? const Center(child: Text('Your cart is empty'))
+          : ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (context, index) {
+                final item = cartItems[index];
+                return Dismissible(
+                  key: Key(item.name + item.price.toString()), // Unique key for each item
+                  direction: DismissDirection.endToStart, // Swipe direction
+                  onDismissed: (direction) {
+                    Cart().removeFromCart(item);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Product removed from cart'),
+                      ),
+                    );
+                  },
+                  background: Container(
+                    color: Colors.white, // Background color when swiped
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.blue,
+                      size: 40.0,
+                    ),
+                  ),
+                  child: Card(
+                    margin: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          item.image,
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                // First Column: Name, Color, Size
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.name,
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      if (item.selectedColor != null)
+                                        Text(
+                                          ' ${item.selectedColor}',
+                                          style: const TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                      if (item.selectedSize != null)
+                                        Text(
+                                          'Size: ${item.selectedSize}',
+                                          style: const TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                           Text(
+                                      '\$${item.price.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight:FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    ],
+                                  ),
+                                ),
+                                // Second Column: Quantity and Price
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: _incrementQuantity,
+                                      color: Colors.grey),
+
+                     Container(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 11.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                     child:  Text(
+                         '$_quantity',
+                         style: const TextStyle(
+                       fontSize: 18.0,
+                          ),
+                           ),
+                          ),
+                                    IconButton(
+                                      icon: const Icon(Icons.remove),
+                                      onPressed: _decrementQuantity,
+                                      color: Colors.grey,
+                                    ),
+                                   
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () {
+            // Handle checkout process
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            minimumSize: const Size(double.infinity, 50),
+          ),
+          child: const Text(
+            'Checkout',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+        ),
+      ),
     );
   }
 }
-
-
-
-
-

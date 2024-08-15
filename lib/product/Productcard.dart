@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/productlist.dart';
@@ -11,6 +13,9 @@ class Product {
   final double rating;
   final double? canceledPrice;
    final List<String> additionalImages;
+    final String? selectedColor;
+  final String? selectedSize;
+  final int quantity;
 
   Product({
     required this.image,
@@ -19,8 +24,31 @@ class Product {
     required this.rating,
     required this.canceledPrice,
     required this.additionalImages,
+       this.selectedColor,
+    this.selectedSize,
+    this.quantity = 1,
   });
+    // Method to update product details
+  Product copyWith({
+    String? selectedColor,
+    String? selectedSize,
+    int? quantity,
+    
+  }) {
+    return Product(
+      name: name,
+      image: image,
+      additionalImages: additionalImages,
+      price: price,
+      selectedColor: selectedColor ?? this.selectedColor,
+      selectedSize: selectedSize ?? this.selectedSize,
+      quantity: quantity ?? this.quantity, 
+      
+      canceledPrice: price, rating: rating,
+    );
+  }
 }
+
 
 class ProductCard extends StatefulWidget {
   final Product product;
