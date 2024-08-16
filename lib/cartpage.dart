@@ -154,29 +154,15 @@ class _CartPageState extends State<CartPage> {
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [ Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Total:',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '\$${_calculateTotalPrice().toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
-              ],
+          children: [
+            Text(
+              'Total: \$${_calculateTotalPrice().toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-       
-           Column(
-            children: [ ElevatedButton(
+            ElevatedButton(
               onPressed: () {
                 // Checkout process
               },
@@ -192,13 +178,9 @@ class _CartPageState extends State<CartPage> {
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
             ),
-          ]
-           ),
-           
-          ] 
+          ],
         ),
-      )
+      ),
     );
-    
   }
 }

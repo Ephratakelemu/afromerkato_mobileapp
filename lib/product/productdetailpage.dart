@@ -32,7 +32,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   void dispose() {
     _pageController.removeListener(_updatePageIndex); // Remove listener
-    _pageController.dispose(); // Dispose of the PageController when done
+    _pageController.dispose();
     super.dispose();
   }
 
