@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navigationmenu.dart';
 
-
-
 void main() {
   runApp(const MyApp());
 }

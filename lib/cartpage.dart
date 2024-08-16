@@ -8,8 +8,9 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-   int _quantity = 1;
-  void  _incrementQuantity() {
+  int _quantity = 1;
+
+  void _incrementQuantity() {
     setState(() {
       _quantity++;
     });
@@ -25,6 +26,14 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     List<Product> cartItems = Cart().items;
 
+    double _calculateTotalPrice() {
+      double total = 0.0;
+      for (var item in cartItems) {
+        total += item.price * _quantity; // Assuming _quantity is per item
+      }
+      return total;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
@@ -37,17 +46,12 @@ class _CartPageState extends State<CartPage> {
                 final item = cartItems[index];
                 return Dismissible(
                   key: Key(item.name + item.price.toString()), // Unique key for each item
-                  direction: DismissDirection.endToStart, // Swipe direction
+                  direction: DismissDirection.endToStart, 
                   onDismissed: (direction) {
                     Cart().removeFromCart(item);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Product removed from cart'),
-                      ),
-                    );
                   },
                   background: Container(
-                    color: Colors.white, // Background color when swiped
+                    color: Colors.white, 
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(right: 20.0),
                     child: const Icon(
@@ -57,7 +61,7 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
                   child: Card(
-                    margin: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(4.0),
                     child: Row(
                       children: [
                         Image.asset(
@@ -71,7 +75,6 @@ class _CartPageState extends State<CartPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                // First Column: Name, Color, Size
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,45 +100,43 @@ class _CartPageState extends State<CartPage> {
                                             fontSize: 14.0,
                                           ),
                                         ),
-                                           Text(
-                                      '\$${item.price.toStringAsFixed(2)}',
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight:FontWeight.bold,
-                                        color: Colors.blue,
+                                      Text(
+                                        '\$${item.price.toStringAsFixed(2)}',
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
                                       ),
-                                    ),
                                     ],
                                   ),
                                 ),
-                                // Second Column: Quantity and Price
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.add),
                                       onPressed: _incrementQuantity,
-                                      color: Colors.grey),
-
-                     Container(
-                  padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 11.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                     child:  Text(
-                         '$_quantity',
-                         style: const TextStyle(
-                       fontSize: 18.0,
-                          ),
-                           ),
-                          ),
+                                      color: Colors.grey,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 11.0),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.blue),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        '$_quantity',
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      ),
+                                    ),
                                     IconButton(
                                       icon: const Icon(Icons.remove),
                                       onPressed: _decrementQuantity,
                                       color: Colors.grey,
                                     ),
-                                   
                                   ],
                                 ),
                               ],
@@ -148,25 +149,56 @@ class _CartPageState extends State<CartPage> {
                 );
               },
             ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: () {
-            // Handle checkout process
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [ Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Total:',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '\$${_calculateTotalPrice().toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
             ),
-            minimumSize: const Size(double.infinity, 50),
-          ),
-          child: const Text(
-            'Checkout',
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
+       
+           Column(
+            children: [ ElevatedButton(
+              onPressed: () {
+                // Checkout process
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                minimumSize: const Size(150, 50), // Fixed size for the button
+              ),
+              child: const Text(
+                'Checkout',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+          ]
+           ),
+           
+          ] 
         ),
-      ),
+      )
     );
+    
   }
 }

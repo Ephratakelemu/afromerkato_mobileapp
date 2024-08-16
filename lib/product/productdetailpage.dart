@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/Productcard.dart';
 import 'package:afromerkatoecommerce/product/bottomsheet.dart';
-import 'package:afromerkatoecommerce/cart.dart'; // Cart class
-import 'package:afromerkatoecommerce/cartpage.dart'; //  CartPage
-
+import 'package:afromerkatoecommerce/cart.dart'; 
+import 'package:afromerkatoecommerce/cartpage.dart'; 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
 
@@ -18,7 +17,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int _quantity = 1;
   String? _selectedSize;
   Color? _selectedColor;
-  double _currentRating = 3.5; // Initialize with a default rating
+  double _currentRating = 3.5; 
   int _selectedMenuIndex = 0; // Track the selected menu
   late PageController _pageController;
   int _currentPage = 0;
@@ -73,7 +72,7 @@ void _incrementQuantity() {
           quantity: _quantity,
           selectedSize: _selectedSize,
           onContinue: () {
-            Navigator.pop(context); // Close the bottom sheet
+            Navigator.pop(context); // Close bottom sheet
           },
         );
       },
@@ -91,12 +90,8 @@ void _addToCart() {
   // Add the product to the cart
   Cart().addToCart(productWithDetails);
 
-  // Show a SnackBar
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text('Product added to cart'),
-    ),
-  );
+
+
 
   // Navigate to CartPage
   Navigator.push(
@@ -112,22 +107,21 @@ void _addToCart() {
         title: Text(widget.product.name),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // Add padding to the entire body
+        padding: const EdgeInsets.all(16.0), 
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Aligns everything to the start (left)
+          crossAxisAlignment: CrossAxisAlignment.start, 
           children: [
             // PageView for scrolling images one by one
             SizedBox(
-              height: 300.0, // Height for the images
+              height: 300.0, // Height of images
               child: PageView(
                 controller: _pageController,
                 children: [
-                  // Main Product Image
                   Image.asset(
                     widget.product.image,
                     fit: BoxFit.cover,
                   ),
-                  // Additional Images
+                 
                   ...widget.product.additionalImages.map((image) {
                     return Image.asset(
                       image,
@@ -138,12 +132,12 @@ void _addToCart() {
               ),
             ),
             const SizedBox(height: 10.0),
-            // Custom Dot Indicator
+         
             Center(
               child: _buildDotIndicator(),
             ),
             const SizedBox(height: 10.0),
-            // Product price, Rating, and Rating Count
+           
             Row(
               children: [
                 Expanded(
