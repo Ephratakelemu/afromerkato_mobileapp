@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:afromerkatoecommerce/cart.dart';
 import 'package:afromerkatoecommerce/product/Productcard.dart';
+import 'package:afromerkatoecommerce/checkoutpage.dart'; // Import the CheckoutPage
 
 class CartPage extends StatefulWidget {
   @override
@@ -32,6 +33,10 @@ class _CartPageState extends State<CartPage> {
         total += item.price * _quantity; // Assuming _quantity is per item
       }
       return total;
+    }
+
+    int _totalItems() {
+      return cartItems.length;
     }
 
     return Scaffold(
@@ -164,7 +169,16 @@ class _CartPageState extends State<CartPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Checkout process
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckoutPage(
+                      cartItems: cartItems,
+                      totalItems: _totalItems(),
+                      totalPrice: _calculateTotalPrice(),
+                    ),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,

@@ -4,6 +4,7 @@ import 'package:afromerkatoecommerce/product/Productcard.dart';
 import 'package:afromerkatoecommerce/product/bottomsheet.dart';
 import 'package:afromerkatoecommerce/cart.dart'; 
 import 'package:afromerkatoecommerce/cartpage.dart'; 
+import 'package:afromerkatoecommerce/product/menu.dart';
 class ProductDetailPage extends StatefulWidget {
   final Product product;
 
@@ -69,6 +70,7 @@ void _incrementQuantity() {
       context: context,
       builder: (BuildContext context) {
         return BottomSheetContent(
+          
           quantity: _quantity,
           selectedSize: _selectedSize,
           onContinue: () {
@@ -239,6 +241,8 @@ void _addToCart() {
                   _detailContent(),
                   // Content for "Review"
                   _reviewContent(),
+                  
+                  
                 ],
               ),
             ),
@@ -306,7 +310,7 @@ void _addToCart() {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue : Colors.grey[300], // Blue background if selected
+          color: isSelected ? Colors.blue : Colors.white, // Blue background if selected
           borderRadius: BorderRadius.circular(25),
         ),
         child: Text(
@@ -334,7 +338,7 @@ void _addToCart() {
           height: 8.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: _currentPage == index ? Colors.blue : Colors.grey,
+            color: _currentPage == index ? Colors.blue : const Color.fromARGB(255, 211, 210, 210),
           ),
         ),
       ),
@@ -425,38 +429,152 @@ void _addToCart() {
     // Replace with your content for the "Detail" tab
     return const Center(child: Text('Detailed description here'));
   }
-
-  Widget _reviewContent() {
-    // Replace with your content for the "Review" tab
-    return const Center(child: Text('Reviews here'));
-  }
-}
-
-class MenuItem extends StatelessWidget {
-  final String title;
-  final bool isSelected;
-
-  const MenuItem({
-    Key? key,
-    required this.title,
-    required this.isSelected,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-     
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 16.0,
-            color: isSelected ? Colors.blue : Colors.black,
-          ),
+Widget _reviewContent() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // Display existing reviews
+      Expanded(
+        child: ListView(
+          children: [
+            //add more reviews here
+          ],
         ),
       ),
-    );
-  }
-} 
+    
+      // Write Review Button
+Align(
+  alignment: Alignment.bottomCenter, // Aligns the button at the bottom center
+  child: Container(
+    width: 150, // Sets the width of the button
+    margin: const EdgeInsets.all(16.0), // Adds some margin around the button
+    child: ElevatedButton(
+      onPressed: () {
+        _showWriteReviewBottomSheet(context); // Show bottom sheet when "Write Review" is pressed
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5), // Adjusts corner radius
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 8.0), // Adjusts vertical padding to control height
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center, // Centers the icon and text within the button
+        children: const [
+          Icon(Icons.edit, color: Colors.white), // The write icon
+          SizedBox(width: 8.0), // Space between the icon and text
+          Text(
+            'Write Review',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
+    ],
+  );
+}
+
+// Helper method to display individual reviews
+
+
+// BottomSheet method for writing a review
+void _showWriteReviewBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true, // This makes the bottom sheet resizable with the keyboard
+    builder: (BuildContext context) {
+      return Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 16.0,
+          right: 16.0,
+          top: 16.0,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Adjust the height of the bottom sheet
+          children: [
+            const Text(
+              'What is your rate?',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16.0), // Spacing before the rating bar
+            // Five Star Rating Bar
+            RatingBar.builder(
+              initialRating: 0,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.blue,
+              ),
+              unratedColor: const Color.fromARGB(255, 235, 224, 224),
+              onRatingUpdate: (rating) {
+                // Handle rating update
+              },
+            ),
+            const SizedBox(height: 16.0), // Spacing before the text field
+            const Text(
+              'Please share your opinion about the product.',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            const SizedBox(height: 8.0), // Spacing before the text field
+            // Text Box for writing review
+           TextField(
+  maxLines: 4,
+  decoration: const InputDecoration(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue, // Set the border color to blue
+        width: 2.0, // Optional: set the width of the border
+      ),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue, // Blue color when the field is not focused
+        width: 2.0,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue, // Blue color when the field is focused
+        width: 2.0,
+      ),
+    ),
+  ),
+),
+
+            const SizedBox(height: 16.0), // Spacing before the button
+            // Send Review Button
+           ElevatedButton(
+      onPressed: () {
+        _showWriteReviewBottomSheet(context); // Show bottom sheet when "send review" is pressed
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5), // Adjust corner radius
+        ),
+        minimumSize: const Size(double.infinity, 50),
+        padding: const EdgeInsets.symmetric(vertical: 10.0), // Adjust vertical padding to control height
+      ),
+      child: const Text(
+        'Send review',
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+    ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
+}
 
