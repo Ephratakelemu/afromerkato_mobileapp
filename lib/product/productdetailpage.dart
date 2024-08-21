@@ -19,27 +19,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   String? _selectedSize;
   Color? _selectedColor;
   double _currentRating = 3.5; 
-  int _selectedMenuIndex = 0; // Track the selected menu
+  int _selectedMenuIndex = 0; 
   late PageController _pageController;
   int _currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(); // Initialize the PageController
-    _pageController.addListener(_updatePageIndex); // Listen to page changes
+    _pageController = PageController(); 
+    _pageController.addListener(_updatePageIndex);
   }
 
   @override
   void dispose() {
-    _pageController.removeListener(_updatePageIndex); // Remove listener
+    _pageController.removeListener(_updatePageIndex); 
     _pageController.dispose();
     super.dispose();
   }
 
   void _updatePageIndex() {
     setState(() {
-      _currentPage = _pageController.page?.round() ?? 0; // Update the current page index
+      _currentPage = _pageController.page?.round() ?? 0; 
     });
   }
 
@@ -82,20 +82,19 @@ void _incrementQuantity() {
   }
 
 void _addToCart() {
-  // Create a new product with selected details
+ 
   Product productWithDetails = widget.product.copyWith(
     selectedColor: _selectedColor?.toString(),
     selectedSize: _selectedSize,
     quantity: _quantity,
   );
 
-  // Add the product to the cart
   Cart().addToCart(productWithDetails);
 
 
 
 
-  // Navigate to CartPage
+
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => CartPage()),
@@ -113,9 +112,8 @@ void _addToCart() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, 
           children: [
-            // PageView for scrolling images one by one
-            SizedBox(
-              height: 300.0, // Height of images
+              SizedBox(
+              height: 300.0, 
               child: PageView(
                 controller: _pageController,
                 children: [
@@ -161,24 +159,24 @@ void _addToCart() {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemSize: 20.0, // Adjust the size of the stars
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 0.0), // Reduce padding between stars
+                        itemSize: 20.0, 
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 1.0), 
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
-                          color: Colors.blue, // Blue stars
+                          color: Colors.blue, 
                         ),
-                        unratedColor: Colors.grey[300], // Light gray color for unselected stars
+                        unratedColor: Colors.grey[300], 
                         onRatingUpdate: (rating) {
                           setState(() {
-                            _currentRating = rating; // Update the current rating
+                            _currentRating = rating; 
                           });
                         },
                       ),
-                      const SizedBox(width: 8.0), // Space between stars and rating number
+                      const SizedBox(width: 8.0), 
                       Text(
                         _currentRating.toString(),
                         style: const TextStyle(
-                          color: Colors.black, // Text color
+                          color: Colors.black,
                           fontSize: 16.0,
                         ),
                       ),
@@ -188,7 +186,6 @@ void _addToCart() {
               ],
             ),
             const SizedBox(height: 4.0),
-            // Product Name
             Text(
               widget.product.name,
               style: const TextStyle(
@@ -230,7 +227,6 @@ void _addToCart() {
               ],
             ),
             const SizedBox(height: 10.0),
-            // Display content based on selected menu
             Expanded(
               child: IndexedStack(
                 index: _selectedMenuIndex,
@@ -250,37 +246,37 @@ void _addToCart() {
         ),
       ),
       
-      // Action Buttons
+      
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
             Expanded(
               child: ElevatedButton(
-                onPressed: _addToCart, // Add to Cart action
+                onPressed: _addToCart, 
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                     side: const BorderSide(
-                      color: Colors.blue, // Border color
-                      width: 1.5, // Border width
+                      color: Colors.blue, 
+                      width: 1.5, 
                     ),
                   ),
-                  minimumSize: const Size(double.infinity, 40), // Set width and height
+                  minimumSize: const Size(double.infinity, 40), // width and height
                 ),
                 child: const Text('Add to Cart', style: TextStyle(color: Colors.blue, fontSize: 18)),
               ),
             ),
-            const SizedBox(width: 16.0), // Space between buttons
+            const SizedBox(width: 16.0), 
             Expanded(
               child: ElevatedButton(
-                onPressed: _showBottomSheet, // Show bottom sheet when "Buy Now" is pressed
+                onPressed: _showBottomSheet, 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Adjust corner radius
+                    borderRadius: BorderRadius.circular(5), 
                   ),
-                  minimumSize: const Size(double.infinity, 40), // Set width and height
+                  minimumSize: const Size(double.infinity, 40), //  width and height
                 ),
                 child: const Text('Buy Now', style: TextStyle(color: Colors.white, fontSize: 18)),
               ),
@@ -292,25 +288,25 @@ void _addToCart() {
   }
 
  Widget _colorOption(Color color) {
-    bool isSelected = color == _selectedColor; // Check if this color is selected
+    bool isSelected = color == _selectedColor; // Check selected color
     return GestureDetector(
-      onTap: () => _selectColor(color), // Update selected color
+      onTap: () => _selectColor(color), 
       child: CircleAvatar(
         radius: 12,
         backgroundColor: color,
-        child: isSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check mark if selected
+        child: isSelected ? Icon(Icons.check, color: Colors.white) : null, 
       ),
     );
   }
 
   Widget _sizeOption(String size) {
-    bool isSelected = size == _selectedSize; // Check if this size is selected
+    bool isSelected = size == _selectedSize; 
     return GestureDetector(
-      onTap: () => _selectSize(size), // Update selected size
+      onTap: () => _selectSize(size), 
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue : Colors.white, // Blue background if selected
+          color: isSelected ? Colors.blue : Colors.white, 
           borderRadius: BorderRadius.circular(25),
         ),
         child: Text(
@@ -331,7 +327,7 @@ void _addToCart() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        widget.product.additionalImages.length + 1, // +1 for main image
+        widget.product.additionalImages.length + 1, 
         (index) => Container(
           margin: const EdgeInsets.symmetric(horizontal: 3.0),
           width: 8.0,
@@ -426,44 +422,42 @@ void _addToCart() {
 
 
   Widget _detailContent() {
-    // Replace with your content for the "Detail" tab
+   
     return const Center(child: Text('Detailed description here'));
   }
 Widget _reviewContent() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      // Display existing reviews
+    
       Expanded(
         child: ListView(
-          children: [
-            //add more reviews here
-          ],
+          children: [],
         ),
       ),
     
-      // Write Review Button
+     
 Align(
-  alignment: Alignment.bottomCenter, // Aligns the button at the bottom center
+  alignment: Alignment.bottomCenter,
   child: Container(
-    width: 150, // Sets the width of the button
-    margin: const EdgeInsets.all(16.0), // Adds some margin around the button
+    width: 150, 
+    margin: const EdgeInsets.all(16.0), 
     child: ElevatedButton(
       onPressed: () {
-        _showWriteReviewBottomSheet(context); // Show bottom sheet when "Write Review" is pressed
+        _showWriteReviewBottomSheet(context); 
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5), // Adjusts corner radius
+          borderRadius: BorderRadius.circular(5), 
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8.0), // Adjusts vertical padding to control height
+        padding: const EdgeInsets.symmetric(vertical: 8.0), 
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Centers the icon and text within the button
+        mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Icon(Icons.edit, color: Colors.white), // The write icon
-          SizedBox(width: 8.0), // Space between the icon and text
+          Icon(Icons.edit, color: Colors.white), 
+          SizedBox(width: 8.0), 
           Text(
             'Write Review',
             style: TextStyle(color: Colors.white, fontSize: 18),
@@ -478,14 +472,10 @@ Align(
   );
 }
 
-// Helper method to display individual reviews
-
-
-// BottomSheet method for writing a review
 void _showWriteReviewBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    isScrollControlled: true, // This makes the bottom sheet resizable with the keyboard
+    isScrollControlled: true, 
     builder: (BuildContext context) {
       return Container(
         padding: EdgeInsets.only(
@@ -495,15 +485,15 @@ void _showWriteReviewBottomSheet(BuildContext context) {
           top: 16.0,
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // Adjust the height of the bottom sheet
+          mainAxisSize: MainAxisSize.min, //height of the bottom sheet
           children: [
             const Text(
               'What is your rate?',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16.0), // Spacing before the rating bar
-            // Five Star Rating Bar
-            RatingBar.builder(
+           
+           const SizedBox(height: 16.0), 
+        RatingBar.builder(
               initialRating: 0,
               minRating: 1,
               direction: Axis.horizontal,
@@ -515,28 +505,27 @@ void _showWriteReviewBottomSheet(BuildContext context) {
               ),
               unratedColor: const Color.fromARGB(255, 235, 224, 224),
               onRatingUpdate: (rating) {
-                // Handle rating update
+               
               },
             ),
-            const SizedBox(height: 16.0), // Spacing before the text field
+            const SizedBox(height: 16.0), 
             const Text(
               'Please share your opinion about the product.',
               style: TextStyle(fontSize: 16.0),
             ),
-            const SizedBox(height: 8.0), // Spacing before the text field
-            // Text Box for writing review
+            const SizedBox(height: 8.0), 
+            
            TextField(
   maxLines: 4,
   decoration: const InputDecoration(
     border: OutlineInputBorder(
       borderSide: BorderSide(
-        color: Colors.blue, // Set the border color to blue
-        width: 2.0, // Optional: set the width of the border
+        width: 2.0, 
       ),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: Colors.blue, // Blue color when the field is not focused
+        color: Colors.blue, 
         width: 2.0,
       ),
     ),
@@ -549,19 +538,18 @@ void _showWriteReviewBottomSheet(BuildContext context) {
   ),
 ),
 
-            const SizedBox(height: 16.0), // Spacing before the button
-            // Send Review Button
+            const SizedBox(height: 16.0), 
            ElevatedButton(
       onPressed: () {
-        _showWriteReviewBottomSheet(context); // Show bottom sheet when "send review" is pressed
+         
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5), // Adjust corner radius
+          borderRadius: BorderRadius.circular(5), 
         ),
         minimumSize: const Size(double.infinity, 50),
-        padding: const EdgeInsets.symmetric(vertical: 10.0), // Adjust vertical padding to control height
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
       ),
       child: const Text(
         'Send review',
