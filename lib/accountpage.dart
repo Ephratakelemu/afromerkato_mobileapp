@@ -38,21 +38,14 @@ class AccountPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Name', // Replace with the actual name
+                        'Name\nName@email.com', // Replace with the actual name
                         style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        'ABCD@email.com', // Replace with the actual email
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white70,
-                        ),
-                      ),
+                    
                     ],
                   ),
                 ),
@@ -92,10 +85,10 @@ class AccountPage extends StatelessWidget {
           ),
           // Logout Button
           Container(
-            color: Colors.white,
+           color: Colors.white,
             child: ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
-              title: const Text('Logout'),
+              title: const Text('LogOut'),
               onTap: () {
                 // functionality for logout
               },
@@ -112,7 +105,7 @@ class AccountPage extends StatelessWidget {
       leading: Icon(icon, color: Colors.blue),
       title: Text(title),
       onTap: () {
-        // functionality for each menu item
+        // functionality of each menu item
       },
     );
   }

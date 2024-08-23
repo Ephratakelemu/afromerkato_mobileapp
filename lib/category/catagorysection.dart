@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:afromerkatoecommerce/category/Allcategories.dart'; 
 
+
 class CategorySection extends StatelessWidget {
   CategorySection({super.key});
 
@@ -15,8 +16,8 @@ class CategorySection extends StatelessWidget {
         SubCategory(name: 'Hoodies'),
         SubCategory(name: 'Dresses'),
         SubCategory(name: 'Coats'),
-         SubCategory(name: 'Office Wear'),
-          SubCategory(name: 'Jeans'),
+        SubCategory(name: 'Office Wear'),
+        SubCategory(name: 'Jeans'),
           
       ],
     ),

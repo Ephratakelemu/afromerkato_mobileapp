@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:afromerkatoecommerce/product/productlist.dart';
 import 'package:afromerkatoecommerce/product/productdetailpage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -28,7 +25,6 @@ class Product {
     this.selectedSize,
     this.quantity = 1,
   });
-    // Method to update product details
   Product copyWith({
     String? selectedColor,
     String? selectedSize,
@@ -151,7 +147,7 @@ class _ProductCardState extends State<ProductCard> {
           ),
         ),
       ),
-      const SizedBox(width: 8.0), // Space between text and rating bar
+      const SizedBox(width: 8.0), 
       Row(
         children: [
           Container(

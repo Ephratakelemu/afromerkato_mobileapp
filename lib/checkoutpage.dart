@@ -36,7 +36,7 @@ class CheckoutPage extends StatelessWidget {
                       'Shipping Address',
                       style: const TextStyle(
                         fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     IconButton(
@@ -47,7 +47,7 @@ class CheckoutPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  'name\n1234S\nstate\ncountry',
+                  'fullname\nphone\nstate\ncountry',
                   style: const TextStyle(fontSize: 14.0, color: Colors.grey),
                 ),
                 const SizedBox(height: 16.0),
@@ -56,8 +56,7 @@ class CheckoutPage extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-                  
-                  ),
+                   ),
                 ),
                 const SizedBox(height: 8.0),
                 Text(

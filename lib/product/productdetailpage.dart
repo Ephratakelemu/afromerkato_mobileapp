@@ -91,11 +91,7 @@ void _addToCart() {
 
   Cart().addToCart(productWithDetails);
 
-
-
-
-
-  Navigator.push(
+Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => CartPage()),
   );

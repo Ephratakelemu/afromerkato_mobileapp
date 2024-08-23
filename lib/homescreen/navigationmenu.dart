@@ -1,14 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'cartpage.dart';
-import 'accountpage.dart';
-import 'homescreen/homescreen.dart';
-
-
-
-
-
-
+import '../cartpage.dart';
+import '../accountpage.dart';
+import 'homescreen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

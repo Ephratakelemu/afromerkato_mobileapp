@@ -8,10 +8,6 @@ import 'package:afromerkatoecommerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:afromerkatoecommerce/homescreen/searchresultspage.dart';
 
-
-
-
-
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
 
@@ -38,22 +34,16 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
 
-
-  
-  
    @override 
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title:const Text('welcome to afromerkato'),
         actions: const [Icon(Icons.notifications),
         ],
         ),
-        
-         body: SingleChildScrollView(
+        body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
              Search(onSearchChanged: _onSearchChanged,onSearchSubmitted: _onSearchSubmitted,),

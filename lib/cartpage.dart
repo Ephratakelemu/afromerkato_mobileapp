@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:afromerkatoecommerce/cart.dart';
 import 'package:afromerkatoecommerce/product/Productcard.dart';
-import 'package:afromerkatoecommerce/checkoutpage.dart'; // Import the CheckoutPage
+import 'package:afromerkatoecommerce/checkoutpage.dart';
+
+
 
 class CartPage extends StatefulWidget {
   @override
@@ -30,7 +32,7 @@ class _CartPageState extends State<CartPage> {
     double _calculateTotalPrice() {
       double total = 0.0;
       for (var item in cartItems) {
-        total += item.price * _quantity; // Assuming _quantity is per item
+        total += item.price * _quantity; 
       }
       return total;
     }
@@ -50,7 +52,7 @@ class _CartPageState extends State<CartPage> {
               itemBuilder: (context, index) {
                 final item = cartItems[index];
                 return Dismissible(
-                  key: Key(item.name + item.price.toString()), // Unique key for each item
+                  key: Key(item.name + item.price.toString()), 
                   direction: DismissDirection.endToStart, 
                   onDismissed: (direction) {
                     Cart().removeFromCart(item);
@@ -185,7 +187,7 @@ class _CartPageState extends State<CartPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                minimumSize: const Size(150, 50), // Fixed size for the button
+                minimumSize: const Size(150, 50), 
               ),
               child: const Text(
                 'Checkout',
