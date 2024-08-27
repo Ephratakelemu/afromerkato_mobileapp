@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:afromerkatoecommerce/app_pages/account/account_controller.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountView extends GetView<AccountController> {
+  AccountView({Key?key}):super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +41,15 @@ class AccountPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Name\nName@email.com', // Replace with the actual name
-                        style: const TextStyle(
+                       Text('name\nemail  ',
+                        
+                     style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
+                      
                     
                     ],
                   ),
@@ -64,22 +69,22 @@ class AccountPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 24.0),
+          const SizedBox(height: 8.0),
 
-          // Menu Section
+        
           Expanded(
             child: ListView(
               children: [
-                _buildMenuItem(Icons.location_on, 'Shipping Address'),
-                _buildMenuItem(Icons.payment, 'Payment Method'),
-                _buildMenuItem(Icons.history, 'Order History'),
-                _buildMenuItem(Icons.delivery_dining, 'Delivery Status'),
-                _buildMenuItem(Icons.language, 'Language'),
-                _buildMenuItem(Icons.favorite, 'Favorite'),
-                _buildMenuItem(Icons.lock, 'Privacy Policy'),
-                _buildMenuItem(Icons.question_answer, 'Frequently Asked Questions'),
-                _buildMenuItem(Icons.info, 'Legal Information'),
-                _buildMenuItem(Icons.star_rate, 'Rate Our App'),
+                ListTile(leading: Icon(Icons.location_on, color: Colors.blue,), title: Text("Shipping Address"),),
+                ListTile(leading: Icon(Icons.payment,color: Colors.blue,),title: Text("Payment Method"),),
+                ListTile(leading: Icon( Icons.history, color: Colors.blue,), title:Text ("Order History"),),
+                 ListTile(leading: Icon (Icons.delivery_dining, color: Colors.blue,), title: Text('Delivery Status'),),
+                 ListTile(leading: Icon (Icons.language, color: Colors.blue,),title: Text('Language'),),
+                 ListTile(leading: Icon (Icons.favorite, color: Colors.blue,), title: Text('Favorite'),),
+                 ListTile(leading: Icon (Icons.lock, color: Colors.blue,), title: Text('Privacy Policy'),),
+                 ListTile(leading: Icon (Icons.question_answer, color: Colors.blue,), title:Text('Frequently Asked Questions'),),
+                 ListTile(leading: Icon (Icons.info, color: Colors.blue,), title: Text('Legal Information'),),
+                 ListTile(leading: Icon (Icons.star_rate, color: Colors.blue,), title: Text('Rate Our App'),),
               ],
             ),
           ),
@@ -100,13 +105,4 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.blue),
-      title: Text(title),
-      onTap: () {
-        // functionality of each menu item
-      },
-    );
-  }
 }

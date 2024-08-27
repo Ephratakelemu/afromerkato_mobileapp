@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import '../cartpage.dart';
-import '../accountpage.dart';
+import '../cart/cart_view.dart';
+import 'package:afromerkatoecommerce/app_pages/account/account_view.dart';
 import 'homescreen.dart';
 
 class MainPage extends StatefulWidget {
@@ -16,8 +16,8 @@ class _MainPageState extends State<MainPage> {
 
   static final List<Widget> _pages = <Widget>[
     HomePage(),
-   CartPage(),
-    AccountPage(),
+   CartView(),
+    AccountView(),
     
     
   ];

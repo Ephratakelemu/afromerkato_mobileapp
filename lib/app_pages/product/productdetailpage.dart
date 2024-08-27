@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:afromerkatoecommerce/product/Productcard.dart';
-import 'package:afromerkatoecommerce/product/bottomsheet.dart';
-import 'package:afromerkatoecommerce/cart.dart'; 
-import 'package:afromerkatoecommerce/cartpage.dart'; 
-import 'package:afromerkatoecommerce/product/menu.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/bottomsheet.dart';
+import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart'; 
+import 'package:afromerkatoecommerce/app_pages/cart/cart_view.dart'; 
+import 'package:afromerkatoecommerce/app_pages/product/menu.dart';
 class ProductDetailPage extends StatefulWidget {
   final Product product;
 
@@ -89,11 +89,11 @@ void _addToCart() {
     quantity: _quantity,
   );
 
-  Cart().addToCart(productWithDetails);
+  Cartcontroller().addToCart(productWithDetails);
 
 Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => CartPage()),
+    MaterialPageRoute(builder: (context) => CartView()),
   );
 }
 

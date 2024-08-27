@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/product/productlist.dart';
-import 'package:afromerkatoecommerce/product/productdetailpage.dart';
+import 'package:afromerkatoecommerce/app_pages/product/productlist.dart';
+import 'package:afromerkatoecommerce/app_pages/product/productdetailpage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Product {
@@ -12,7 +12,7 @@ class Product {
    final List<String> additionalImages;
     final String? selectedColor;
   final String? selectedSize;
-  final int quantity;
+  int quantity;
 
   Product({
     required this.image,

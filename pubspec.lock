@@ -380,10 +380,10 @@ packages:
     dependency: "direct main"
     description:
       name: vendure
-      sha256: adb34e348ed1af69021895c280b5d59e25d62f71a09024cb59721bfdcc202ab5
+      sha256: "418f78ff4005776e7dd6d1f9f7ba8832bc0ba2d9f80f87a30785d807fc53bf67"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.4"
+    version: "1.2.6"
   vm_service:
     dependency: transitive
     description:

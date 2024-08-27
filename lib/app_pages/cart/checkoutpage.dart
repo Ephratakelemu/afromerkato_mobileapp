@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
 
 class CheckoutPage extends StatelessWidget {
   final List<Product> cartItems;

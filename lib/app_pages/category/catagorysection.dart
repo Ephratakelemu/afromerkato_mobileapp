@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/category/Allcategories.dart'; 
+import 'package:afromerkatoecommerce/app_pages/category/Allcategories.dart'; 
 
 
 class CategorySection extends StatelessWidget {

@@ -1,62 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/cart.dart';
-import 'package:afromerkatoecommerce/product/Productcard.dart';
-import 'package:afromerkatoecommerce/checkoutpage.dart';
+import 'package:get/get.dart';
+import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/cart/checkoutpage.dart';
 
 
 
-class CartPage extends StatefulWidget {
-  @override
-  _CartPageState createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-  int _quantity = 1;
-
-  void _incrementQuantity() {
-    setState(() {
-      _quantity++;
-    });
-  }
-
-  void _decrementQuantity() {
-    setState(() {
-      if (_quantity > 1) _quantity--;
-    });
-  }
-
-  @override
+class CartView extends GetView<Cartcontroller> {
+  CartView({Key? key}):super(key:key);
+  
+ @override
   Widget build(BuildContext context) {
-    List<Product> cartItems = Cart().items;
+    final Cartcontroller controller=Get.put(Cartcontroller());
 
-    double _calculateTotalPrice() {
-      double total = 0.0;
-      for (var item in cartItems) {
-        total += item.price * _quantity; 
-      }
-      return total;
-    }
-
-    int _totalItems() {
-      return cartItems.length;
-    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      body: cartItems.isEmpty
-          ? const Center(child: Text('Your cart is empty'))
-          : ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final item = cartItems[index];
-                return Dismissible(
-                  key: Key(item.name + item.price.toString()), 
-                  direction: DismissDirection.endToStart, 
-                  onDismissed: (direction) {
-                    Cart().removeFromCart(item);
-                  },
+      body:  Obx(() {
+        if (controller.cartItems.isEmpty) {
+          return const Center(child: Text('Your cart is empty'));
+        }
+         return ListView.builder(
+          itemCount: controller.cartItems.length,
+          itemBuilder: (context, index) {
+            final item = controller.cartItems[index];
+            return Dismissible(
+              key: Key(item.name + item.price.toString()),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) {
+                controller.removeFromCart(item);
+              },
                   background: Container(
                     color: Colors.white, 
                     alignment: Alignment.centerRight,
@@ -64,35 +39,35 @@ class _CartPageState extends State<CartPage> {
                     child: const Icon(
                       Icons.delete,
                       color: Colors.blue,
-                      size: 40.0,
+                      size: 30.0,
                     ),
                   ),
-                  child: Card(
-                    margin: const EdgeInsets.all(4.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          item.image,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.name,
-                                        style: const TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                 
+                         child: Card(
+                     margin: const EdgeInsets.all(4.0),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      item.image,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,),
+                           Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.name,
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                       if (item.selectedColor != null)
                                         Text(
                                           ' ${item.selectedColor}',
@@ -123,7 +98,7 @@ class _CartPageState extends State<CartPage> {
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.add),
-                                      onPressed: _incrementQuantity,
+                                      onPressed: () => controller.incrementQuantity(item),
                                       color: Colors.grey,
                                     ),
                                     Container(
@@ -133,7 +108,7 @@ class _CartPageState extends State<CartPage> {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
-                                        '$_quantity',
+                                        '${item.quantity}',
                                         style: const TextStyle(
                                           fontSize: 18.0,
                                         ),
@@ -141,21 +116,22 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                     IconButton(
                                       icon: const Icon(Icons.remove),
-                                      onPressed: _decrementQuantity,
+                                      onPressed:  () => controller.decrementQuantity(item),
                                       color: Colors.grey,
-                                    ),
-                                  ],
-                                ),
+                                   ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
         color: Colors.white,
@@ -163,7 +139,7 @@ class _CartPageState extends State<CartPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Total: \$${_calculateTotalPrice().toStringAsFixed(2)}',
+              'Total: \$${controller.calculateTotalPrice().toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -175,9 +151,9 @@ class _CartPageState extends State<CartPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CheckoutPage(
-                      cartItems: cartItems,
-                      totalItems: _totalItems(),
-                      totalPrice: _calculateTotalPrice(),
+                      cartItems:controller. cartItems,
+                      totalItems: controller.totalItems,
+                      totalPrice: controller.calculateTotalPrice(),
                     ),
                   ),
                 );
@@ -200,3 +176,5 @@ class _CartPageState extends State<CartPage> {
     );
   }
 }
+
+

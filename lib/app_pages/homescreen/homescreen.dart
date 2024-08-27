@@ -1,12 +1,13 @@
-
-
-import 'package:afromerkatoecommerce/Herosection.dart';
-import 'package:afromerkatoecommerce/product/Productcard.dart';
-import 'package:afromerkatoecommerce/category/catagorysection.dart';
-import 'package:afromerkatoecommerce/homescreen/Search.dart';
+import 'package:afromerkatoecommerce/app_pages/homescreen/herosection.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/category/catagorysection.dart';
+import 'package:afromerkatoecommerce/app_pages/homescreen/Search.dart';
 import 'package:afromerkatoecommerce/main.dart';
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/homescreen/searchresultspage.dart';
+import 'package:afromerkatoecommerce/app_pages/homescreen/searchresultspage.dart';
+
+
+
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key});

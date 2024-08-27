@@ -1,4 +1,4 @@
-import 'package:afromerkatoecommerce/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
 import 'package:flutter/material.dart';
 
 class ProductList extends StatelessWidget{

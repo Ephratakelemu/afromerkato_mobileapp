@@ -1,4 +1,4 @@
-import 'package:afromerkatoecommerce/homescreen/homescreen.dart';
+import 'package:afromerkatoecommerce/app_pages/homescreen/homescreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
