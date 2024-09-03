@@ -1,26 +1,26 @@
+import 'package:afromerkatoecommerce/app_pages/splashscreen/splashscreen_view.dart';
 import 'package:flutter/material.dart';
-import 'app_pages/homescreen/navigationmenu.dart';
+import 'package:vendure/vendure.dart';
+import 'package:get/get.dart';
 
-void main() 
-{
-  runApp(const MyApp());
+void main() {
+ 
+ 
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Afromerkato e-commerce',
       themeMode: ThemeMode.system,
       theme: ThemeData(),
-      darkTheme:ThemeData(),
-      home: const MainPage(),
-      
-      
+      darkTheme: ThemeData(),
+      home: SplashscreenView(),
     );
-  } 
+  }
 }
-

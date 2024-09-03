@@ -41,17 +41,15 @@ class AccountView extends GetView<AccountController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text('name\nemail  ',
+                       Text('Name\nEmail  ',
                         
                      style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
-                      ),
-                      
-                    
-                    ],
+                      ),  
+                      ],
                   ),
                 ),
                 Container(

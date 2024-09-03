@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/app_pages/category/Allcategories.dart'; 
+import 'package:afromerkatoecommerce/app_pages/category/categories_view.dart';
+import 'package:flutter/material.dart'; 
+import 'package:afromerkatoecommerce/app_pages/category/model.dart';
 
 
 class CategorySection extends StatelessWidget {
@@ -95,7 +96,7 @@ class CategorySection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllCategoriesPage(categories: categories),
+                      builder: (context) => CategoriesView(categories: categories),
                     ),
                   );
                 },
@@ -123,7 +124,7 @@ class CategorySection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllCategoriesPage(
+                      builder: (context) =>CategoriesView(
                         categories: categories
                         
                       ),

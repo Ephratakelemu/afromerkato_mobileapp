@@ -12,23 +12,23 @@ class _HerosectionState extends State<Herosection> {
   final List<Map<String, String>> heroItems = [
     {
       'image': 'assets/images/shoes 1.jpg',
-      'topLeftText': 'Super Flash Sale',
-      'bottomleftText': '50% Off',
+      'Text': 'Super Flash Sale\n50% Off',
+      
     },
     {
       'image': 'assets/images/sport 4 Bottom Sneakers.jpg',
-      'topLeftText': 'Super Flash Sale',
-      'bottomleftText': '50% Off',
+      'Text': 'Super Flash Sale\n50% Off',
+      
     },
     {
       'image': 'assets/images/shoes 3.jpg',
-      'topLeftText': 'Super Flash Sale',
-      'bottomleftText': '50% Off',
+      'Text': 'Super Flash Sale\n50% Off',
+      
     },
     {
       'image': 'assets/images/shoes 4.jpg',
-      'topLeftText': 'Super Flash Sale',
-      'bottomleftText': '50% Off',
+      'Text': 'Super Flash Sale\n50% Off',
+      
     },
   ];
 
@@ -73,7 +73,7 @@ class _HerosectionState extends State<Herosection> {
                       top: 25,
                       left: 24,
                       child: Text(
-                        heroItems[index]['topLeftText']!,
+                        heroItems[index]['Text']!,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -81,18 +81,7 @@ class _HerosectionState extends State<Herosection> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 132,
-                      left: 25,
-                      child: Text(
-                        heroItems[index]['bottomleftText']!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                  
                     Positioned(
                       left: 25,
                       bottom: 30,

@@ -8,7 +8,7 @@ class Cartcontroller extends GetxController{
     final existingItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (existingItem != null) {
       existingItem.quantity++;
-      cartItems.refresh(); // Refresh to update the UI
+      cartItems.refresh(); 
     } else {
       cartItems.add(item);
     }
@@ -22,7 +22,7 @@ class Cartcontroller extends GetxController{
     final cartItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (cartItem != null) {
       cartItem.quantity++;
-      cartItems.refresh(); // Refresh to update the UI
+      cartItems.refresh();
     }
   }
 

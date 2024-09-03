@@ -16,10 +16,11 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _quantity = 1;
+  Image? _selectedImage;
   String? _selectedSize;
   Color? _selectedColor;
-  double _currentRating = 3.5; 
-  int _selectedMenuIndex = 0; 
+  double _currentRating = 3.5;
+  int _selectedMenuIndex = 0;
   late PageController _pageController;
   int _currentPage = 0;
 
@@ -66,13 +67,14 @@ void _incrementQuantity() {
     });
   }
   void _showBottomSheet() {
-    showModalBottomSheet(
+      showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return BottomSheetContent(
-          
           quantity: _quantity,
+          image: _selectedImage ?? Image.asset('assets/default_image.png'), // Use a default image if none is selected
           selectedSize: _selectedSize,
+          selectedColor: _selectedColor,
           onContinue: () {
             Navigator.pop(context); // Close bottom sheet
           },

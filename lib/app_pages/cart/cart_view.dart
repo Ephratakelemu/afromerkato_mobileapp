@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart';
-import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
-import 'package:afromerkatoecommerce/app_pages/cart/checkoutpage.dart';
+import 'package:afromerkatoecommerce/app_pages/cart/checkout_view.dart';
 
 
 
@@ -16,7 +15,10 @@ class CartView extends GetView<Cartcontroller> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        automaticallyImplyLeading: false,
+        title: const Text('Cart',style: TextStyle(fontSize:30),),
+        scrolledUnderElevation: 0,
+      leading: IconButton(onPressed:() {Get.back();}, icon:const Icon(Icons.arrow_back_ios),),
       ),
       body:  Obx(() {
         if (controller.cartItems.isEmpty) {
@@ -147,15 +149,11 @@ class CartView extends GetView<Cartcontroller> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CheckoutPage(
+                Get.to(() => CheckOutView(
                       cartItems:controller. cartItems,
                       totalItems: controller.totalItems,
                       totalPrice: controller.calculateTotalPrice(),
                     ),
-                  ),
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import '../cart/cart_view.dart';
 import 'package:afromerkatoecommerce/app_pages/account/account_view.dart';
-import 'homescreen.dart';
+import 'home_view.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:get/get.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckOutView extends GetView {
   final List<Product> cartItems;
   final int totalItems;
   final double totalPrice;
 
-  CheckoutPage({
+  CheckOutView({
     required this.cartItems,
     required this.totalItems,
     required this.totalPrice,
@@ -16,12 +17,22 @@ class CheckoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "CheckOut",
+          style: TextStyle(fontSize: 26),
+        ),
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-       
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16.0),
@@ -32,44 +43,32 @@ class CheckoutPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Shipping Address',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 24.0,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: (){}
+                      onPressed: () {},
                     ),
                   ],
                 ),
                 const SizedBox(height: 8.0),
-                Text(
-                  'fullname\nphone\nstate\ncountry',
-                  style: const TextStyle(fontSize: 14.0, color: Colors.grey),
+                const Text(
+                  'Full Name\nPhone\nState\nCountry',
+                  style: TextStyle(fontSize: 14.0, color: Colors.grey),
                 ),
                 const SizedBox(height: 16.0),
-                Text(
-                  'Payment Method',
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                   ),
-                ),
-                const SizedBox(height: 8.0),
-                Text(
-                  'Mastercard',
-                  style: const TextStyle(fontSize: 14.0, color: Colors.grey),
-                ),
               ],
             ),
           ),
-             Container(
-              width:double.infinity ,
+          PaymentSection(),
+          Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(16.0),
-           
             color: Colors.white,
             child: Text(
               'Items $totalItems',
@@ -115,7 +114,7 @@ class CheckoutPage extends StatelessWidget {
                                           ),
                                           if (item.selectedColor != null)
                                             Text(
-                                              ' ${item.selectedColor}',
+                                              'Color: ${item.selectedColor}',
                                               style: const TextStyle(
                                                 fontSize: 14.0,
                                               ),
@@ -186,4 +185,149 @@ class CheckoutPage extends StatelessWidget {
   }
 }
 
+class PaymentSection extends StatelessWidget {
+  PaymentSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add padding to the title
+          child: SectionHeading(
+            title: "Payment Method",
+            onPressed: () {
+              // Handle edit payment method action
+            },
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        Row(
+          children: [
+            Container(
+       color: Colors.white,
+          width: 100,
+              height: 100,
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                'assets/images/mastercard2.png', 
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(width: 16.0),
+            const Text(
+              "MasterCard",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16.0),
+      ],
+    );
+  }
+}
+
+
+class SectionHeading extends StatefulWidget {
+  final String title;
+  final VoidCallback onPressed;
+
+  SectionHeading({
+    required this.title,
+    required this.onPressed,
+  });
+
+  @override
+  _SectionHeadingState createState() => _SectionHeadingState();
+}
+
+class _SectionHeadingState extends State<SectionHeading> {
+  bool _showPaymentMethods = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: const TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: const Icon( Icons.expand_more,
+               color: Colors.blue, ),
+              onPressed: () {
+                setState(() {
+                  _showPaymentMethods = !_showPaymentMethods;
+                });
+              },
+            ),
+          ],
+        ),
+        if (_showPaymentMethods) _buildPaymentMethodsList(),
+      ],
+    );
+  }
+
+  Widget _buildPaymentMethodsList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          leading: Image.asset(
+            'assets/images/mastercard2.png', // Replace with your actual image asset path
+            width: 100,
+            height: 100,
+            fit: BoxFit.contain,
+          ),
+          title: const Text('Credit Card'),
+          onTap: () {
+            // Handle Credit Card selection
+            setState(() {
+              _showPaymentMethods = false;
+            });
+          },
+        ),
+        ListTile(
+          leading: Image.asset(
+            'assets/images/mastercard2.png', // Replace with your actual image asset path
+            width: 100,
+            height: 100,
+            fit: BoxFit.contain,
+          ),
+          title: const Text('PayPal'),
+          onTap: () {
+            // Handle PayPal selection
+            setState(() {
+              _showPaymentMethods = false;
+            });
+          },
+        ),
+        ListTile(
+          leading: Image.asset(
+            'assets/images/mastercard2.png', // Replace with your actual image asset path
+            width: 100,
+            height: 100,
+            fit: BoxFit.contain,
+          ),
+          title: const Text('Bank Transfer'),
+          onTap: () {
+            // Handle Bank Transfer selection
+            setState(() {
+              _showPaymentMethods = false;
+            });
+          },
+        ),
+        // Add more payment methods as needed
+      ],
+    );
+  }
+}
 
