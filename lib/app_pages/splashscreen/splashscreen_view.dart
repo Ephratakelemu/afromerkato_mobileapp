@@ -15,15 +15,15 @@ class SplashscreenView extends GetView<SplashscreenController> {
      child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Image.asset('assets/images/BAZAR (2).jpg'),
+             Image.asset('assets/images/ba (1).jpg'),
             SizedBox(
               width: Get.width,
               child: ElevatedButton(onPressed: ()async{
                 await Future.delayed(Duration(seconds: 1));
-                 Get.offAll(() => MainPage());
+                 Get.offAll(() => Pageview());
                  },
                style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: const Color.fromARGB(255, 102, 175, 235),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),

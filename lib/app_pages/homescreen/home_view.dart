@@ -1,61 +1,44 @@
 import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
-import 'package:afromerkatoecommerce/app_pages/category/categorysection.dart';
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/app_pages/searches/searchresultspage.dart';
 import 'package:get/get.dart';
 import 'package:afromerkatoecommerce/app_pages/product/productlist.dart';
+import 'package:afromerkatoecommerce/app_pages/category/categories_view.dart';
+import 'package:afromerkatoecommerce/app_pages/category/model.dart';
+import 'homepage_controller.dart';
 
-class HomePage extends StatefulWidget{
-  const HomePage({super.key});
+class HomePageview extends GetView<HomepageController>{
+  const HomePageview({super.key});
 
-   @override
-  
-  
-  _HomePageState createState() => _HomePageState();
-}
-class _HomePageState extends State<HomePage> {
-  String _searchQuery = '';
-
-  void _onSearchChanged(String query) {
-    setState(() {
-      _searchQuery = query;
-    });
-  }
-
-  void _onSearchSubmitted() {
-    // Navigate to the SearchResultsPage with the query
-    Get.to(()=> SearchResultsPage(query: _searchQuery),
-      );
-    
-  }
-
-   @override 
+    @override 
   Widget build(BuildContext context) {
+    final HomepageController controller= Get.put(HomepageController());
+    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:const Text('welcome to afromerkato',style: TextStyle(fontSize:23),),
+        title:const Text('welcome to afromerkato',
+        style: TextStyle(fontSize:23),),
         scrolledUnderElevation: 0,
         actions: const [Icon(Icons.notifications),
         ],
           bottom: PreferredSize(
-  preferredSize: const Size.fromHeight(50.0), // Adjust the height to fit the TextField
+  preferredSize: const Size.fromHeight(50.0), 
   child: Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8.0),
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(10.0), // Adjust the radius for rounded corners
+      borderRadius: BorderRadius.circular(10.0), 
       child: TextField(
         autofocus: false,
         decoration: const InputDecoration(
           hintText: 'Search...',
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
-          fillColor: Colors.white, // Optional: To ensure the background is visible
+          fillColor: Colors.white, 
           filled: true,
         ),
-        onChanged: _onSearchChanged,
-        onSubmitted: (query) {
-          _onSearchSubmitted();
+        onChanged: controller.updateSearchQuery,
+                onSubmitted: (query) {
+                  controller.onSearchSubmitted();
         },
       ),
     ),
@@ -83,11 +66,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
               
-                     // Other sections of your page can go here
-            Herosection(),
-            // Include the CategorySection widget
-             
-         
+      // Other sections of your page can go here
+         Herosection(),
+            
              ProductGrid(
           products: [
             Product(
@@ -194,23 +175,19 @@ class _HerosectionState extends State<Herosection> {
     {
       'image': 'assets/images/shoes 1.jpg',
       'Text': 'Super Flash Sale\n50% Off',
-      
-    },
+      },
     {
       'image': 'assets/images/sport 4 Bottom Sneakers.jpg',
       'Text': 'Super Flash Sale\n50% Off',
-      
-    },
+       },
     {
       'image': 'assets/images/shoes 3.jpg',
       'Text': 'Super Flash Sale\n50% Off',
-      
-    },
+      },
     {
       'image': 'assets/images/shoes 4.jpg',
       'Text': 'Super Flash Sale\n50% Off',
-      
-    },
+       },
   ];
 
   @override
@@ -334,15 +311,8 @@ class ProductGrid extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductList(products: products),
-                    ),
-                  );
-                },
-                child: const Text(
+                onPressed: ()=>Get.to(ProductList(products: products)),
+                  child: const Text(
                   'View All',
                   style: TextStyle(color: Colors.black),
                 ),
@@ -372,3 +342,161 @@ class ProductGrid extends StatelessWidget {
   }
 }
 
+class CategorySection extends StatelessWidget {
+  CategorySection({super.key});
+
+  final List<Category> categories = [
+    Category(
+      name: 'Apparel',
+      icon: Icons.checkroom_sharp,
+      subcategories: [
+        SubCategory(name: 'Sweaters'),
+        SubCategory(name: 'T-shirts'),
+        SubCategory(name: 'Pants'),
+        SubCategory(name: 'Hoodies'),
+        SubCategory(name: 'Dresses'),
+        SubCategory(name: 'Coats'),
+        SubCategory(name: 'Office Wear'),
+        SubCategory(name: 'Jeans'),
+          
+      ],
+    ),
+    Category(name: 'Watches', icon: Icons.watch,
+         subcategories: [
+        SubCategory(name: 'Smart Watches'),
+        SubCategory(name: 'Luxury Watches '),
+          SubCategory(name: 'Sport Watches'),
+      
+      ],),
+
+    Category(name: 'Shoes', icon: Icons.hiking_sharp,
+    subcategories: [
+        SubCategory(name: 'Casual Shoes'),
+          SubCategory(name: 'Sneakers Shoes'),
+        SubCategory(name: 'Sport Shoes'),
+        SubCategory(name: 'Boots'),
+        SubCategory(name: 'Heels'),
+              ],),
+
+
+    Category(name: 'Beauty', icon: Icons.girl_rounded,
+    subcategories: [
+        SubCategory(name: 'Skin care'),
+        SubCategory(name: 'Make Up'),
+        SubCategory(name: 'Hair Care'),
+        SubCategory(name: 'Fragrances'),
+              ],
+    ),
+    Category(name: 'Electronics', icon: Icons.mobile_friendly,
+     subcategories: [
+        SubCategory(name: 'Laptops'),
+        SubCategory(name: 'Television'),
+        SubCategory(name: 'Audio Devices'),
+        
+       
+              
+              ],
+    ),
+    Category(name: 'Toys', icon: Icons.toys,
+     subcategories: [
+        SubCategory(name: 'Infant Toys'),
+        SubCategory(name: 'Games and Puzzles'),
+        SubCategory(name: 'Arts and Crafts'),
+       
+         
+              ],
+    ),
+    Category(name: 'Sports', icon: Icons.sports_basketball,
+    subcategories: [
+      SubCategory(name: 'Football'),
+      SubCategory(name: 'Basketball'),
+      SubCategory(name: 'Tennis'),
+       SubCategory(name: 'Cycling'),]
+      
+    ),
+  ];
+
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Category',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoriesView(categories: categories),
+                    ),
+                  );
+                },
+                child: const Text('View All', style: TextStyle(color: Colors.black)),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 20.0,
+              mainAxisSpacing: 10.0,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: categories.length < 3 ? categories.length : 3,
+            itemBuilder: (context, index) {
+              final category = categories[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>CategoriesView(
+                        categories: categories
+                        
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
+                  elevation: 1.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        category.icon,
+                        size: 30,
+                        color: Colors.blue,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        category.name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16, color: Color.fromARGB(255, 24, 23, 23)),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
