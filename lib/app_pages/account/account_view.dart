@@ -60,7 +60,7 @@ class AccountView extends GetView<AccountController> {
                   child: IconButton(
                     icon: const Icon(Icons.edit, color: Colors.white),
                     onPressed: () {
-                      // Add functionality for editing profile
+                      //  functionality for editing profile
                     },
                   ),
                 ),
@@ -86,7 +86,7 @@ class AccountView extends GetView<AccountController> {
               ],
             ),
           ),
-          // Logout Button
+        
           Container(
            color: Colors.white,
             child: ListTile(

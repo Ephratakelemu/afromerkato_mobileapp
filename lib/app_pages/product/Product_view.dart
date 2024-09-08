@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
 
-import 'package:afromerkatoecommerce/app_pages/product/productdetailpage.dart';
+import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart';
+import 'package:afromerkatoecommerce/app_pages/productdetailpage/detail_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
+import '../cart/cart_view.dart';
+import 'product_controller.dart';
 
 class Product {
   final String image;
@@ -9,10 +13,11 @@ class Product {
   final double price;
   final double rating;
   final double? canceledPrice;
-   final List<String> additionalImages;
-    final String? selectedColor;
+  final List<String> additionalImages;
+  final String? selectedColor;
   final String? selectedSize;
   int quantity;
+  bool isFavorited;
 
   Product({
     required this.image,
@@ -21,15 +26,17 @@ class Product {
     required this.rating,
     required this.canceledPrice,
     required this.additionalImages,
-       this.selectedColor,
+    this.selectedColor,
     this.selectedSize,
     this.quantity = 1,
+    this.isFavorited = false, 
   });
+
   Product copyWith({
     String? selectedColor,
     String? selectedSize,
     int? quantity,
-    
+    bool? isFavorited,
   }) {
     return Product(
       name: name,
@@ -38,28 +45,22 @@ class Product {
       price: price,
       selectedColor: selectedColor ?? this.selectedColor,
       selectedSize: selectedSize ?? this.selectedSize,
-      quantity: quantity ?? this.quantity, 
-      
-      canceledPrice: price, rating: rating,
+      quantity: quantity ?? this.quantity,
+      canceledPrice: canceledPrice,
+      rating: rating,
+      isFavorited: isFavorited ?? this.isFavorited,
     );
   }
 }
 
-
-class ProductCard extends StatefulWidget {
+class ProductCardView extends GetView<ProductController> {
   final Product product;
+final int index;
+  const ProductCardView({Key?key, required this.index, required this.product}):super(key:key);
 
-  const ProductCard({super.key, required this.product});
-
-  @override
-  _ProductCardState createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  bool isFavorited = false;
-
-  @override
+@override
   Widget build(BuildContext context) {
+    final ProductController productController= Get.put(ProductController());
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -69,7 +70,7 @@ class _ProductCardState extends State<ProductCard> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailPage(product: widget.product),
+              builder: (context) => ProductDetailPage(product: product),
             ),
           );
         },
@@ -82,7 +83,7 @@ class _ProductCardState extends State<ProductCard> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(5.0),
                     child: Image.asset(
-                      widget.product.image,
+                      product.image,
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),
@@ -92,17 +93,16 @@ class _ProductCardState extends State<ProductCard> {
                     top: 2.0,
                     child: IconButton(
                       icon: Icon(
-                        isFavorited ? Icons.favorite : Icons.favorite_border,
+                       product. isFavorited ? Icons.favorite : Icons.favorite_border,
                         color: Colors.blue,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isFavorited = !isFavorited;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+                      onPressed: () 
+                        {
+                        productController.toggleFavorite(index);
+                        }
+                        ),
+                       ),
+                        ],
               ),
             ),
             Container(
@@ -112,15 +112,15 @@ class _ProductCardState extends State<ProductCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    '\$${widget.product.price.toStringAsFixed(2)}',
+                    '\$${product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  if (widget.product.canceledPrice != null)
+                  if (product.canceledPrice != null)
                     Text(
-                      '\$${widget.product.canceledPrice!.toStringAsFixed(2)}',
+                      '\$${product.canceledPrice!.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -141,7 +141,7 @@ class _ProductCardState extends State<ProductCard> {
     children: [
       Expanded(
         child: Text(
-          widget.product.name,
+          product.name,
           style: const TextStyle(
             fontSize: 16.0,
           ),
@@ -159,7 +159,7 @@ class _ProductCardState extends State<ProductCard> {
             child: Row(
               children: [
                 RatingBar.builder(
-                  initialRating: widget.product.rating,
+                  initialRating: product.rating,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -175,7 +175,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 const SizedBox(width: 4.0),
                 Text(
-                  '${widget.product.rating.toStringAsFixed(1)}', //rated number
+                  '${product.rating.toStringAsFixed(1)}', //rated number
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -190,13 +190,14 @@ class _ProductCardState extends State<ProductCard> {
   ),
 ),
 
-
-            
-            Container(
+      Container(
               padding: const EdgeInsets.all(2.0),
               width: MediaQuery.of(context).size.width,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.find<Cartcontroller>().addToCart(product.copyWith());
+    Get.to(() => CartView());
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 17, 128, 219),
                   shape: RoundedRectangleBorder(
@@ -216,3 +217,33 @@ class _ProductCardState extends State<ProductCard> {
   }
 }
 
+class ProductList extends StatelessWidget{
+  final List <Product> products;
+  const ProductList({Key? key, required this.products}):super (key:key);
+  @override
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:const Text('Productlist'),
+      ),
+body:  GridView.builder(
+   padding: const EdgeInsets.all(2),
+      shrinkWrap: true,  
+
+  gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount
+(crossAxisCount: 2,
+crossAxisSpacing: 10,
+mainAxisSpacing: 10,
+childAspectRatio: 0.65,),
+itemCount: products.length,
+itemBuilder: (context,index){
+  return ProductCardView(product: products[index], index: index,);
+       },
+      ),
+    );
+  }
+}
+  
+  
+ 

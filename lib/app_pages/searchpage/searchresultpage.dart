@@ -1,5 +1,6 @@
+import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+
 
 class SearchResultsPage extends StatefulWidget {
   final String query;
@@ -134,7 +135,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
         ),
         itemCount: filteredProducts.length,
         itemBuilder: (context, index) {
-          return ProductCard(product: filteredProducts[index]);
+          return ProductCardView(product: filteredProducts[index], index: index,);
         },
       ),
     );

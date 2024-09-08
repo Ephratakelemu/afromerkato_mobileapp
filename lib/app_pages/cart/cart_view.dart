@@ -4,21 +4,19 @@ import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart';
 import 'package:afromerkatoecommerce/app_pages/cart/checkout_view.dart';
 
 
-
 class CartView extends GetView<Cartcontroller> {
   CartView({Key? key}):super(key:key);
   
  @override
   Widget build(BuildContext context) {
     final Cartcontroller controller=Get.put(Cartcontroller());
-
-
-    return Scaffold(
-      appBar: AppBar(
+       return Scaffold(
+          appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Cart',style: TextStyle(fontSize:30),),
         scrolledUnderElevation: 0,
-      leading: IconButton(onPressed:() {Get.back();}, icon:const Icon(Icons.arrow_back_ios),),
+      leading: IconButton(onPressed:() {Get.back();},
+       icon:const Icon(Icons.arrow_back_ios),),
       ),
       body:  Obx(() {
         if (controller.cartItems.isEmpty) {

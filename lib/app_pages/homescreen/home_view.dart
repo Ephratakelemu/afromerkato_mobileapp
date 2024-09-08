@@ -1,7 +1,6 @@
-import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:afromerkatoecommerce/app_pages/product/productlist.dart';
 import 'package:afromerkatoecommerce/app_pages/category/categories_view.dart';
 import 'package:afromerkatoecommerce/app_pages/category/model.dart';
 import 'homepage_controller.dart';
@@ -148,25 +147,17 @@ class HomePageview extends GetView<HomepageController>{
 
             
         CategorySection(),
-        
-          ]
-          
-
-            // Other sections of your page can go 
-        ),
+         ]
+         ),
       ),
        );
       }
 }
 
-
-
-
 class Herosection extends StatefulWidget {
   @override
   _HerosectionState createState() => _HerosectionState();
 }
-
 class _HerosectionState extends State<Herosection> {
   final PageController _pageController = PageController(); // Page controller
   int _currentPage = 0; // To track the current page
@@ -275,7 +266,7 @@ class _HerosectionState extends State<Herosection> {
           children: List.generate(heroItems.length, (index) {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              width: _currentPage == index ? 10.0 : 8.0, // Wider if selected
+              width: _currentPage == index ? 10.0 : 8.0, 
               height: 8.0,
               decoration: BoxDecoration(
                 color: _currentPage == index ? Colors.blue : const Color.fromARGB(255, 190, 188, 188),
@@ -330,9 +321,9 @@ class ProductGrid extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (context, index) {
               return Container(
-                width: 200, // Adjust the width of each item as needed
+                width: 200,
                 margin: const EdgeInsets.only(right: 10.0),
-                child: ProductCard(product: products[index]),
+                child: ProductCardView(product: products[index], index: index,),
               );
             },
           ),

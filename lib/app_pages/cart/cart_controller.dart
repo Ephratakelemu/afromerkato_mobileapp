@@ -1,4 +1,4 @@
-import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:get/get.dart';
 
 class Cartcontroller extends GetxController{
@@ -30,7 +30,7 @@ class Cartcontroller extends GetxController{
     final cartItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (cartItem != null && cartItem.quantity > 1) {
       cartItem.quantity--;
-      cartItems.refresh(); // Refresh to update the UI
+      cartItems.refresh(); 
     }
   }
 
@@ -39,25 +39,4 @@ class Cartcontroller extends GetxController{
   }
 
   int get totalItems => cartItems.length;
-
-  
-  
-  
-  
-  
-  // @override
-   
-  //   void onInit(){
-  //     super.onInit();
-  //   }
-  //   @override
-  // void onReady(){
-  //   super.onReady();
-  // }
-  // @override
-  // void onClose(){
-  //   super.onClose();
-  // }
-  
-  
 }

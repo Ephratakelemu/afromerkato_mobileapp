@@ -1,13 +1,15 @@
+import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
-  var itemsData = <String, List<Map<String, String>>> {}.obs;
+var products = <Product>[].obs;
 
-  void updateItemsData(String subCategoryName, List<Map<String, String>> items) {
-    itemsData[subCategoryName] = items;
+  void toggleFavorite(int index) {
+    products[index] = products[index].copyWith(
+      isFavorited: !products[index].isFavorited,
+    );
   }
-
-  List<Map<String, String>> getItemsForSubCategory(String subCategoryName) {
-    return itemsData[subCategoryName] ?? [];
+ void addToCart(Product product) {
+   print("${product.name} added to cart");
   }
 }

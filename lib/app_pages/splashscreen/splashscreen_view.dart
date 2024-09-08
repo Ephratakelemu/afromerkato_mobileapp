@@ -18,9 +18,8 @@ class SplashscreenView extends GetView<SplashscreenController> {
              Image.asset('assets/images/ba (1).jpg'),
             SizedBox(
               width: Get.width,
-              child: ElevatedButton(onPressed: ()async{
-                await Future.delayed(Duration(seconds: 1));
-                 Get.offAll(() => Pageview());
+              child: ElevatedButton(onPressed: (){
+               Get.offAll(() => Pageview());
                  },
                style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 102, 175, 235),

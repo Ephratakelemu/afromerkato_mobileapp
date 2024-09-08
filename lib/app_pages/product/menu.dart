@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class MenuItem extends StatelessWidget {
   final String title;
   final bool isSelected;

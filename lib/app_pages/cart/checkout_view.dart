@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:afromerkatoecommerce/app_pages/product/Productcard.dart';
+import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:get/get.dart';
-import 'package:afromerkatoecommerce/app_pages/order_success/successscreen.dart';
+import'package:afromerkatoecommerce/app_pages/order_success/success_view.dart';
 
 class CheckOutView extends GetView {
   final List<Product> cartItems;
@@ -169,7 +169,7 @@ class CheckOutView extends GetView {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.to(OrderSuccessScreen());
+                Get.to(OrderSuccessScreenView());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,

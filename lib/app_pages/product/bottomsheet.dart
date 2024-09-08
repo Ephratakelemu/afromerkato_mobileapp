@@ -1,62 +1,85 @@
 import 'package:flutter/material.dart';
 
-class BottomSheetContent extends StatelessWidget {
-  final int quantity;
-  final Image image; // Non-nullable since it's always passed
-  final String? selectedSize;
+class BottomSheetPage extends StatelessWidget {
+  final Image? image;
   final Color? selectedColor;
-  final VoidCallback onContinue;
+  final String? selectedSize;
+  final int quantity;
+  final double price;
+  
 
-  const BottomSheetContent({
-    super.key,
+  const BottomSheetPage({
+    Key? key,
+    this.image,
+    this.selectedColor,
+    this.selectedSize,
     required this.quantity,
-    required this.image,
-    required this.selectedSize,
-    required this.selectedColor,
-    required this.onContinue,
-  });
+    required this.price,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
-      height: 400.0, // Adjust height as needed
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 16.0,
+        right: 16.0,
+        top: 16.0,
+      ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Summary',
-            style: TextStyle(
-              fontSize: 18.0,
+          SizedBox(
+            height: 200, 
+            child: image ?? Placeholder(), //  placeholder if no image is provided
+          ),
+          Text(
+            '\$${price.toStringAsFixed(2)}',
+            style: const TextStyle(
+              fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 16.0),
-          Card(
-            elevation: 4.0,
-            child: SizedBox(
-              height: 200.0, // Adjust height as needed
-              child: image,
+          Text(
+            'Selected Color:',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+          ),
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: selectedColor ?? Colors.black,
+              shape: BoxShape.circle,
             ),
           ),
           const SizedBox(height: 16.0),
           Text(
+            'Selected Size: ${selectedSize ?? 'Not selected'}',
+            style: TextStyle(fontSize: 16.0),
+          ),
+          const SizedBox(height: 16.0),
+          Text(
             'Quantity: $quantity',
-            style: const TextStyle(fontSize: 16.0),
+            style: TextStyle(fontSize: 16.0),
           ),
-          Text(
-            'Size: ${selectedSize ?? 'Not selected'}',
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          Text(
-            'Color: ${selectedColor != null ? 'Selected' : 'Not selected'}',
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const Spacer(),
-          Center(
-            child: ElevatedButton(
-              onPressed: onContinue,
-              child: const Text('Continue'),
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the bottom sheet
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              minimumSize: Size(double.infinity, 50),
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+            ),
+            child: Text(
+              'Continue',
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:afromerkatoecommerce/app_pages/homescreen/home_navigation_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -18,15 +19,13 @@ class OrderSuccessController extends GetxController with GetSingleTickerProvider
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: Curves.elasticOut, // bounce effect
+        curve: Curves.elasticOut, 
       ),
     );
-
-   
-    _animationController.forward();
+_animationController.forward();
 
     Future.delayed(const Duration(seconds: 2), () {
-      Get.offAll(PageView()); 
+      Get.offAll(()=>Pageview()); 
     });
   }
 
