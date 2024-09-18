@@ -1,17 +1,23 @@
 import 'package:afromerkatoecommerce/app_pages/product/Product_view.dart';
 import 'package:get/get.dart';
 
-class Cartcontroller extends GetxController{
+class Cartcontroller extends GetxController {
   var cartItems = <Product>[].obs;
- var quantity = 1.obs;
- void addToCart(Product item) {
+
+  // Calculate total price as an observable
+  double get totalPrice => cartItems.fold(0, (total, item) => total + item.price * item.quantity);
+
+  int get totalItems => cartItems.length;
+
+  void addToCart(Product item) {
     final existingItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (existingItem != null) {
       existingItem.quantity++;
-      cartItems.refresh(); 
     } else {
       cartItems.add(item);
     }
+    // Trigger a refresh after updating the quantity
+    cartItems.refresh();
   }
 
   void removeFromCart(Product item) {
@@ -22,6 +28,7 @@ class Cartcontroller extends GetxController{
     final cartItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (cartItem != null) {
       cartItem.quantity++;
+      // Trigger a refresh after updating the quantity
       cartItems.refresh();
     }
   }
@@ -30,13 +37,8 @@ class Cartcontroller extends GetxController{
     final cartItem = cartItems.firstWhereOrNull((i) => i.name == item.name && i.selectedColor == item.selectedColor && i.selectedSize == item.selectedSize);
     if (cartItem != null && cartItem.quantity > 1) {
       cartItem.quantity--;
-      cartItems.refresh(); 
+      // Trigger a refresh after updating the quantity
+      cartItems.refresh();
     }
   }
-
-  double calculateTotalPrice() {
-    return cartItems.fold(0, (total, item) => total + item.price * item.quantity);
-  }
-
-  int get totalItems => cartItems.length;
 }

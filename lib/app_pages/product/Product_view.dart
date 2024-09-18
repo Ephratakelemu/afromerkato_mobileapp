@@ -43,6 +43,7 @@ class Product {
       image: image,
       additionalImages: additionalImages,
       price: price,
+     
       selectedColor: selectedColor ?? this.selectedColor,
       selectedSize: selectedSize ?? this.selectedSize,
       quantity: quantity ?? this.quantity,

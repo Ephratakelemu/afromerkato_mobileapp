@@ -176,7 +176,7 @@ class CheckOutView extends GetView {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                minimumSize: const Size(150, 50), // Fixed size for the button
+                minimumSize: const Size(150, 50), 
               ),
               child: const Text(
                 'Place Order',
@@ -190,8 +190,17 @@ class CheckOutView extends GetView {
   }
 }
 
-class PaymentSection extends StatelessWidget {
+
+
+class PaymentSection extends StatefulWidget {
   PaymentSection({super.key});
+
+  @override
+  _PaymentSectionState createState() => _PaymentSectionState();
+}
+
+class _PaymentSectionState extends State<PaymentSection> {
+  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -199,43 +208,91 @@ class PaymentSection extends StatelessWidget {
       color: Colors.white,
       padding: const EdgeInsets.all(16),
       child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-            Text(
-             'Payment Method', 
-             style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-         
-          ),
-        
-        const SizedBox(height: 16.0),
-        Row(
-          children: [
-            Container(
-       color: Colors.blue,
-          width: 150,
-              height: 80,
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'assets/images/mastercard2.png', 
-                fit: BoxFit.contain,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Payment Method',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              IconButton(
+                icon: Icon(
+                  _expanded ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.blue,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _expanded = !_expanded; 
+                  });
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: [
+              Container(
+                width: 100,
+              padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/images/mastercard2.png', 
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              const Text(
+                "MasterCard ****000",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.blue,
+                 
+                ),
+              ),
+            ],
+          ),
+          if (_expanded) 
+            Column(
+              children: [
+                const SizedBox(height: 16.0),
+                ListTile(
+                  leading: Image.asset(
+                    'assets/images/paypal.png',
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.contain,
+                  ),
+                  title: const Text('PayPal',style: TextStyle(color: Colors.blue),),
+                  onTap: () {
+                    // Handle PayPal selection
+                  },
+                ),
+                ListTile(
+                  leading: Image.asset(
+                    'assets/images/cbe.png', 
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.contain,
+                  ),
+                  title: const Text('CBE',style: TextStyle(color: Colors.blue),),
+                  onTap: () {
+                    
+                  },
+                ),
+                
+              ],
             ),
-            const SizedBox(width: 16.0),
-            const Text(
-              "MasterCard ****0000",
-              style: TextStyle(fontSize: 20.0, color: Colors.blue,fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16.0),
-      ],
-      )
+        ],
+      ),
     );
-
   }
 }
+
+
+
 
 

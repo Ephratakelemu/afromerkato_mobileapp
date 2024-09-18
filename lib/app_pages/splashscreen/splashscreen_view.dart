@@ -1,4 +1,5 @@
 import 'package:afromerkatoecommerce/app_pages/homescreen/home_navigation_view.dart';
+import 'package:afromerkatoecommerce/app_pages/sign_pages/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:afromerkatoecommerce/app_pages/splashscreen/splashscreen_controller.dart';
@@ -15,14 +16,14 @@ class SplashscreenView extends GetView<SplashscreenController> {
      child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Image.asset('assets/images/ba (1).jpg'),
+             Image.asset('assets/images/BAZAR (2).jpg'),
             SizedBox(
               width: Get.width,
               child: ElevatedButton(onPressed: (){
                Get.offAll(() => Pageview());
                  },
                style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 102, 175, 235),
+                backgroundColor:Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -32,6 +33,25 @@ class SplashscreenView extends GetView<SplashscreenController> {
               style: TextStyle(color: Colors.white, fontSize:20),)),
             ),
             const SizedBox(height: 20,),
+             const SizedBox(height: 20),
+            SizedBox(
+              width: 130,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(() => SignInPage()); // Navigate to the SignInPage
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: const Text(
+                  "Sign In",
+                  style: TextStyle(color: Colors.blue, fontSize: 20),
+                ),
+              ),
+            ),
           ],
         ),
       )

@@ -28,7 +28,7 @@ class HomePageview extends GetView<HomepageController>{
       borderRadius: BorderRadius.circular(10.0), 
       child: TextField(
         autofocus: false,
-        decoration: const InputDecoration(
+        decoration: const InputDecoration(     
           hintText: 'Search...',
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
@@ -65,8 +65,8 @@ class HomePageview extends GetView<HomepageController>{
               ),
             ),
               
-      // Other sections of your page can go here
          Herosection(),
+         // Other sections 
             
              ProductGrid(
           products: [
@@ -160,7 +160,7 @@ class Herosection extends StatefulWidget {
 }
 class _HerosectionState extends State<Herosection> {
   final PageController _pageController = PageController(); // Page controller
-  int _currentPage = 0; // To track the current page
+  int _currentPage = 0; 
 
   final List<Map<String, String>> heroItems = [
     {
@@ -426,7 +426,7 @@ class CategorySection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CategoriesView(categories: categories),
+                      builder: (context) => AllCategoriesPageView(categories: categories),
                     ),
                   );
                 },
@@ -454,7 +454,7 @@ class CategorySection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>CategoriesView(
+                      builder: (context) =>AllCategoriesPageView(
                         categories: categories
                         
                       ),

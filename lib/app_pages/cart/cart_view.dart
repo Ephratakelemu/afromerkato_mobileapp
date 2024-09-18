@@ -3,26 +3,28 @@ import 'package:get/get.dart';
 import 'package:afromerkatoecommerce/app_pages/cart/cart_controller.dart';
 import 'package:afromerkatoecommerce/app_pages/cart/checkout_view.dart';
 
-
 class CartView extends GetView<Cartcontroller> {
-  CartView({Key? key}):super(key:key);
-  
- @override
+  CartView({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
-    final Cartcontroller controller=Get.put(Cartcontroller());
-       return Scaffold(
-          appBar: AppBar(
+    final Cartcontroller controller = Get.put(Cartcontroller());
+
+    return Scaffold(
+      appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Cart',style: TextStyle(fontSize:30),),
+        title: const Text('Cart', style: TextStyle(fontSize: 30)),
         scrolledUnderElevation: 0,
-      leading: IconButton(onPressed:() {Get.back();},
-       icon:const Icon(Icons.arrow_back_ios),),
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
       ),
-      body:  Obx(() {
+      body: Obx(() {
         if (controller.cartItems.isEmpty) {
           return const Center(child: Text('Your cart is empty'));
         }
-         return ListView.builder(
+        return ListView.builder(
           itemCount: controller.cartItems.length,
           itemBuilder: (context, index) {
             final item = controller.cartItems[index];
@@ -32,27 +34,27 @@ class CartView extends GetView<Cartcontroller> {
               onDismissed: (direction) {
                 controller.removeFromCart(item);
               },
-                  background: Container(
-                    color: Colors.white, 
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.blue,
-                      size: 30.0,
-                    ),
-                  ),
-                 
-                         child: Card(
-                     margin: const EdgeInsets.all(4.0),
+              background: Container(
+                color: Colors.white,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 20.0),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.blue,
+                  size: 30.0,
+                ),
+              ),
+              child: Card(
+                margin: const EdgeInsets.all(4.0),
                 child: Row(
                   children: [
                     Image.asset(
                       item.image,
                       fit: BoxFit.cover,
                       width: 100,
-                      height: 100,),
-                           Expanded(
+                      height: 100,
+                    ),
+                    Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -68,57 +70,57 @@ class CartView extends GetView<Cartcontroller> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                      if (item.selectedColor != null)
-                                        Text(
-                                          ' ${item.selectedColor}',
-                                          style: const TextStyle(
-                                            fontSize: 14.0,
-                                          ),
-                                        ),
-                                      if (item.selectedSize != null)
-                                        Text(
-                                          'Size: ${item.selectedSize}',
-                                          style: const TextStyle(
-                                            fontSize: 14.0,
-                                          ),
-                                        ),
-                                      Text(
-                                        '\$${item.price.toStringAsFixed(2)}',
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.blue,
-                                        ),
+                                  if (item.selectedColor != null)
+                                    Text(
+                                      ' ${item.selectedColor}',
+                                      style: const TextStyle(
+                                        fontSize: 14.0,
                                       ),
-                                    ],
+                                    ),
+                                  if (item.selectedSize != null)
+                                    Text(
+                                      'Size: ${item.selectedSize}',
+                                      style: const TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  Text(
+                                    '\$${item.price.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: () => controller.incrementQuantity(item),
+                                  color: Colors.grey,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 11.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.blue),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '${item.quantity}',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                    ),
                                   ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.add),
-                                      onPressed: () => controller.incrementQuantity(item),
-                                      color: Colors.grey,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 11.0),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.blue),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        '${item.quantity}',
-                                        style: const TextStyle(
-                                          fontSize: 18.0,
-                                        ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.remove),
-                                      onPressed:  () => controller.decrementQuantity(item),
-                                      color: Colors.grey,
-                                   ),
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () => controller.decrementQuantity(item),
+                                  color: Colors.grey,
+                                ),
                               ],
                             ),
                           ],
@@ -138,19 +140,19 @@ class CartView extends GetView<Cartcontroller> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Total: \$${controller.calculateTotalPrice().toStringAsFixed(2)}',
+            Obx(() => Text(
+              'Total: \$${controller.totalPrice.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
-            ),
+            )),
             ElevatedButton(
               onPressed: () {
                 Get.to(() => CheckOutView(
-                      cartItems:controller. cartItems,
+                      cartItems: controller.cartItems,
                       totalItems: controller.totalItems,
-                      totalPrice: controller.calculateTotalPrice(),
+                      totalPrice: controller.totalPrice,
                     ),
                 );
               },
@@ -159,7 +161,7 @@ class CartView extends GetView<Cartcontroller> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                minimumSize: const Size(150, 50), 
+                minimumSize: const Size(150, 50),
               ),
               child: const Text(
                 'Checkout',
@@ -172,5 +174,3 @@ class CartView extends GetView<Cartcontroller> {
     );
   }
 }
-
-

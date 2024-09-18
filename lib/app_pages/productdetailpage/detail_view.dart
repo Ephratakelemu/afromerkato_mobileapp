@@ -49,27 +49,56 @@ class ProductDetailPage extends StatelessWidget {
               child: Obx(() => _buildDotIndicator(controller)),
             ),
             const SizedBox(height: 10.0),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '\$${product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-                _buildRatingBar(controller),
-              ],
+          Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Row(
+      children: [
+        Expanded(
+          child: Text(
+            '\$${product.price.toStringAsFixed(2)}',
+            style: const TextStyle(
+              color: Colors.blue,
+              fontSize: 20.0,
             ),
-            const SizedBox(height: 4.0),
-            Text(
-              product.name,
-              style: const TextStyle(
-                fontSize: 20.0,
-              ),
+          ),
+        ),
+        _buildRatingBar(controller), // Rating bar
+      ],
+    ),
+    const SizedBox(height: 4.0),
+
+    // Row for product name, stock, and sold items
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            product.name,
+            style: const TextStyle(
+              fontSize: 20.0,
             ),
+          ),
+        ),
+
+        // Display stock information
+        Obx(() => Text(
+          'In Stock: ${controller.stock.value}', // Show remaining stock
+          style: const TextStyle(fontSize: 16.0, color: Colors.green),
+        )),
+
+        const SizedBox(width: 10.0), // Small space between stock and sold items
+
+        // Display sold items information
+        Obx(() => Text(
+          'Sold: ${controller.soldItems.value}', // Show sold items
+          style: const TextStyle(fontSize: 16.0, color: Colors.grey),
+        )),
+      ],
+    ),
+  ],
+),
+
             const SizedBox(height: 6.0),
             // Menu Row
             Row(
@@ -100,26 +129,43 @@ class ProductDetailPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed:() {
-                  Get.find<Cartcontroller>().addToCart(product.copyWith(
-      selectedColor:controller.selectedColor.value?.toString(),
-      selectedSize:controller.selectedSize.value,
-      quantity:controller.quantity.value,
-    ));
-    Get.to(() => CartView());
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(color: Colors.blue, width: 1.5),
-                  ),
-                  minimumSize: const Size(double.infinity, 40),
-                ),
-                child: const Text('Add to Cart', style: TextStyle(color: Colors.blue, fontSize: 18)),
-              ),
-            ),
+         Expanded(
+  child: ElevatedButton(
+    onPressed: () {
+      final int selectedQuantity = controller.quantity.value; // Get the selected quantity
+
+      // Check if stock is sufficient before adding to cart
+      if (controller.stock.value >= selectedQuantity) {
+        // Add product to cart with selected options
+        Get.find<Cartcontroller>().addToCart(
+          product.copyWith(
+            selectedColor: controller.selectedColor.value?.toString(),
+            selectedSize: controller.selectedSize.value,
+            quantity: selectedQuantity,
+          ),
+        );
+
+        // Decrement stock by the selected quantity
+        controller.stock.value -= selectedQuantity;
+       controller.soldItems.value += selectedQuantity;
+        // Navigate to cart page
+        Get.to(() => CartView());
+      } else {
+        // Show an error message if there isn't enough stock
+        Get.snackbar('Stock Error', 'Not enough stock available for the selected quantity');
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+        side: const BorderSide(color: Colors.blue, width: 1.5),
+      ),
+      minimumSize: const Size(double.infinity, 40),
+    ),
+    child: const Text('Add to Cart', style: TextStyle(color: Colors.blue, fontSize: 18)),
+  ),
+),
+
             const SizedBox(width: 16.0),
             Expanded(
               child: ElevatedButton(
@@ -151,7 +197,7 @@ class ProductDetailPage extends StatelessWidget {
           height: 8.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: controller.currentPage.value == index ? Colors.blue : Colors.grey,
+            color: controller.currentPage.value == index ? Colors.blue : const Color.fromARGB(255, 169, 207, 238),
           ),
         ),
       ),
@@ -182,6 +228,7 @@ class ProductDetailPage extends StatelessWidget {
             itemCount: 5,
             itemSize: 20.0,
             itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.blue),
+            unratedColor: const Color.fromARGB(255, 206, 205, 205),
             onRatingUpdate: (rating) => controller.currentRating.value = rating,
           ),
         ),
@@ -298,14 +345,21 @@ class ProductDetailPage extends StatelessWidget {
     return const Text("Product Details");
   }
 
-    Widget _reviewContent(ProductDetailController controller) {
+   Widget _reviewContent(ProductDetailController controller) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Expanded(
-        child: ListView(
-          children: [], // Add review items here
-        ),
+        child: Obx(() {
+          // Observe the reviews list from the controller
+          return ListView.builder(
+            itemCount: controller.reviews.length,
+            itemBuilder: (context, index) {
+              final review = controller.reviews[index];
+              return _buildReviewItem(review['review'], review['rating']);
+            },
+          );
+        }),
       ),
       Align(
         alignment: Alignment.bottomCenter,
@@ -314,7 +368,7 @@ class ProductDetailPage extends StatelessWidget {
           margin: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () {
-              _showWriteReviewBottomSheet(Get.context!); 
+              _showWriteReviewBottomSheet(Get.context!, controller); // Pass controller
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
@@ -341,7 +395,29 @@ class ProductDetailPage extends StatelessWidget {
   );
 }
 
-void _showWriteReviewBottomSheet(BuildContext context) {
+Widget _buildReviewItem(String reviewText, int rating) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        reviewText,
+        style: const TextStyle(fontSize: 16.0),
+      ),
+      Row(
+        children: List.generate(
+          rating,
+          (index) => const Icon(Icons.star, color: Colors.blue),
+        ),
+      ),
+      const Divider(),
+    ],
+  );
+}
+
+void _showWriteReviewBottomSheet(BuildContext context, ProductDetailController controller) {
+  double ratingValue = 0.0; // Store the selected rating
+  TextEditingController reviewController = TextEditingController(); // Controller for review text
+
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -354,7 +430,7 @@ void _showWriteReviewBottomSheet(BuildContext context) {
           top: 16.0,
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
               'What is your rate?',
@@ -373,7 +449,7 @@ void _showWriteReviewBottomSheet(BuildContext context) {
               ),
               unratedColor: const Color.fromARGB(255, 235, 224, 224),
               onRatingUpdate: (rating) {
-              
+                ratingValue = rating; // Store the updated rating value
               },
             ),
             const SizedBox(height: 16.0),
@@ -383,12 +459,11 @@ void _showWriteReviewBottomSheet(BuildContext context) {
             ),
             const SizedBox(height: 8.0),
             TextField(
+              controller: reviewController, // Bind the text controller
               maxLines: 4,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 2.0,
-                  ),
+                  borderSide: BorderSide(width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -406,7 +481,20 @@ void _showWriteReviewBottomSheet(BuildContext context) {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (reviewController.text.isNotEmpty && ratingValue > 0) {
+                  controller.addReview(reviewController.text, ratingValue.toInt()); // Add the review
+                  Navigator.pop(context); // Close bottom sheet after submitting
+                } else {
+                  // Show error message if fields are not filled
+                  Get.snackbar(
+                    'Error',
+                    'Please provide a review and a rating',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
